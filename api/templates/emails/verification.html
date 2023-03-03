@@ -1,0 +1,154 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="x-apple-disable-message-reformatting"/>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+    <title>Email Verification</title>
+    <style>
+        table,
+        td,
+        div,
+        h1,
+        p {
+            font-family: Arial, sans-serif;
+        }
+
+        table,
+        td {
+            /*
+      border: 2px solid #000000 !important; */
+        }
+
+        div {
+            font-family: Roboto,
+            RobotoDraft, Helvetica, Arial, sans-serif;
+            color: rgba(0, 0, 0, 0.87);
+            line-height: 32px;
+            text-align: center;
+            word-break: break-word;
+        }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0; background: transparent;">
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="
+        width: 100%;
+        min-width: 348px;
+        border-collapse: collapse;
+        border: 0;
+        border-spacing: 0;
+        background: transparent;
+      ">
+    <tbody>
+    <tr align="center">
+        <td style="padding: 36px 30px 18px">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="
+                padding: 20px 16px;
+                width: 100%;
+                min-width: 220px;
+                max-width: 516px;
+                border-style: solid;
+                border-width: thin;
+                border-color: #dadce0;
+                border-radius: 8px;
+              ">
+                <tbody>
+                <tr>
+                    <td align="center" style="padding: 12px 0">
+
+                        <svg width="410" height="410" viewBox="0 0 410 410" fill="none"
+                             xmlns="http://www.w3.org/2000/svg" style="width=44px; height: 44px;">
+                            <rect x="2.5" y="2.5" width="405" height="405" rx="202.5" fill="white"></rect>
+                            <g clip-path="url(#clip0_2_38)">
+                                <rect x="5" y="5" width="400" height="400" rx="200" fill="white"></rect>
+                                <rect x="-95" y="-95" width="200" height="200" rx="100" fill="#F06B32">
+                                </rect>
+                                <rect x="205" y="5" width="200" height="200" rx="100" fill="#5553FF"></rect>
+                                <rect x="257.434" y="72" width="20" height="70" rx="10"
+                                      transform="rotate(42.659 257.434 72)" fill="white" fill-opacity="0.6">
+                                </rect>
+                                <rect x="312.434" y="72" width="20" height="70" rx="10"
+                                      transform="rotate(42.659 312.434 72)" fill="white" fill-opacity="0.7">
+                                    <rect x="364.434" y="72" width="20" height="70" rx="10"
+                                </rect>
+                                transform="rotate(42.659 364.434 72)" fill="white"
+                                fill-opacity="0.8">
+                                </rect>
+                                <rect x="305" y="305" width="200" height="200" rx="100" fill="#F06B32">
+                                </rect>
+                                <rect x="5" y="205" width="200" height="200" rx="100" fill="#5553FF">
+                                </rect>
+                                <rect x="90.0545" y="291" width="20" height="70" rx="10"
+                                      transform="rotate(43.3531 90.0545 291)" fill="white"
+                                      fill-opacity="0.55"></rect>
+                                <rect x="154.497" y="277" width="20" height="70" rx="10"
+                                      transform="rotate(45 154.497 277)" fill="white" fill-opacity="0.5">
+                                </rect>
+                            </g>
+                            <rect x="2.5" y="2.5" width="405" height="405" rx="202.5" stroke="#5553FF"
+                                  stroke-width="5"></rect>
+                            <defs>
+                                <clipPath id="clip0_2_38">
+                                    <rect x="5" y="5" width="400" height="400" rx="200" fill="white"></rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <br/>
+                        <p>StudX</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" style="
+                      padding: 12px 0px;
+                      border-bottom: thin solid #dadce0;
+                    ">
+                        <div style="font-size: 24px">Hi {{ username }} 👋 !</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" style="padding: 16px 0">
+                        To activate your account, please verify your email below.
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" style="
+                      font-size: 32px;
+                      line-height: 48px;
+                      letter-spacing: 0.75px;
+                      padding: 12px;
+                    ">
+                        <a href="{{ link }}"
+                           style="font-size: 18px; background: #5553FF; padding: 10px 20px; border-radius: 4px; color: white; text-decoration: none">Verify
+                            your email</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">If the button above doesn't work, copy and paste the link below in you browser:</td>
+                </tr>
+                <tr>
+                    <td align="center">{{ link }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr align="center">
+        <td style="padding: 4px; font-size: 14px; line-height: 21px; color: rgba(0, 0, 0, 0.74);">
+            &copy; 2022 StudX Inc.
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+</html>

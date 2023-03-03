@@ -1,0 +1,8 @@
+/target
+.env
+**/.preview/
+.idea
+**/*.pem
+/pg-data/
+todo.txt
+

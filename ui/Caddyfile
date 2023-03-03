@@ -1,0 +1,18 @@
+{$STUDX_HOST} {
+	route /ws/* {
+		reverse_proxy {$STUDX_ROOMS_HOST}
+	}
+
+	route /api* {
+		reverse_proxy {$STUDX_API_HOST}
+	}
+
+	route /media* {
+		# TODO: Configure as static file server instead
+		reverse_proxy {$STUDX_API_HOST}
+	}
+
+	route /* {
+		reverse_proxy {$STUDX_UI_HOST}
+	}
+}

@@ -1,0 +1,109 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@hocuspocus/server': ^1.0.1
+  y-protocols: ^1.0.5
+  yjs: ^13.5.45
+
+dependencies:
+  '@hocuspocus/server': 1.0.1_slqmkqaszn33u2kncb4feikm7m
+  y-protocols: 1.0.5
+  yjs: 13.5.45
+
+packages:
+
+  /@hocuspocus/common/1.0.1:
+    resolution: {integrity: sha512-S1CBQvAca8Ff6VxeNRk4OY2XOvF0Fg0jz7l/qqBPNzGAdN8T84BgptgVyd3/Hn9fxsOz5/bA3heKhQP0TtlIJA==}
+    dependencies:
+      lib0: 0.2.62
+    dev: false
+
+  /@hocuspocus/server/1.0.1_slqmkqaszn33u2kncb4feikm7m:
+    resolution: {integrity: sha512-7Y0AegbHECiEfItZy4eQHxNsQTugnO6Or7QhDa8gvWO3A2sTpx3PGTYJ3K7/yvvB5olqlOuOUtjF+7MR1HUbiQ==}
+    peerDependencies:
+      y-protocols: ^1.0.5
+      yjs: ^13.5.29
+    dependencies:
+      '@hocuspocus/common': 1.0.1
+      '@types/async-lock': 1.4.0
+      '@types/uuid': 9.0.0
+      '@types/ws': 8.5.4
+      async-lock: 1.4.0
+      kleur: 4.1.5
+      lib0: 0.2.62
+      uuid: 9.0.0
+      ws: 8.12.0
+      y-protocols: 1.0.5
+      yjs: 13.5.45
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
+  /@types/async-lock/1.4.0:
+    resolution: {integrity: sha512-2+rYSaWrpdbQG3SA0LmMT6YxWLrI81AqpMlSkw3QtFc2HGDufkweQSn30Eiev7x9LL0oyFrBqk1PXOnB9IEgKg==}
+    dev: false
+
+  /@types/node/18.13.0:
+    resolution: {integrity: sha512-gC3TazRzGoOnoKAhUx+Q0t8S9Tzs74z7m0ipwGpSqQrleP14hKxP4/JUeEQcD3W1/aIpnWl8pHowI7WokuZpXg==}
+    dev: false
+
+  /@types/uuid/9.0.0:
+    resolution: {integrity: sha512-kr90f+ERiQtKWMz5rP32ltJ/BtULDI5RVO0uavn1HQUOwjx0R1h0rnDYNL0CepF1zL5bSY6FISAfd9tOdDhU5Q==}
+    dev: false
+
+  /@types/ws/8.5.4:
+    resolution: {integrity: sha512-zdQDHKUgcX/zBc4GrwsE/7dVdAD8JR4EuiAXiiUhhfyIJXXb2+PrGshFyeXWQPMmmZ2XxgaqclgpIC7eTXc1mg==}
+    dependencies:
+      '@types/node': 18.13.0
+    dev: false
+
+  /async-lock/1.4.0:
+    resolution: {integrity: sha512-coglx5yIWuetakm3/1dsX9hxCNox22h7+V80RQOu2XUUMidtArxKoZoOtHUPuR84SycKTXzgGzAUR5hJxujyJQ==}
+    dev: false
+
+  /isomorphic.js/0.2.5:
+    resolution: {integrity: sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw==}
+    dev: false
+
+  /kleur/4.1.5:
+    resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
+    engines: {node: '>=6'}
+    dev: false
+
+  /lib0/0.2.62:
+    resolution: {integrity: sha512-DY0G8AaQloUvpiss7EpAo/t4R82b9m/AydbQRNAa9Khssn9oGDJnSN8Q1qQ8u82Wog4iaT1O8yM+DfhzGCrrpQ==}
+    engines: {node: '>=14'}
+    dependencies:
+      isomorphic.js: 0.2.5
+    dev: false
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
+
+  /ws/8.12.0:
+    resolution: {integrity: sha512-kU62emKIdKVeEIOIKVegvqpXMSTAMLJozpHZaJNDYqBjzlSYXQGviYwN1osDLJ9av68qHd4a2oSjd7yD4pacig==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
+
+  /y-protocols/1.0.5:
+    resolution: {integrity: sha512-Wil92b7cGk712lRHDqS4T90IczF6RkcvCwAD0A2OPg+adKmOe+nOiT/N2hvpQIWS3zfjmtL4CPaH5sIW1Hkm/A==}
+    dependencies:
+      lib0: 0.2.62
+    dev: false
+
+  /yjs/13.5.45:
+    resolution: {integrity: sha512-9VUNDvb9oJHdYSMdzIpdM/agVm+EEFKRN+843CFqQuq5bo/BP3EAaxofRG9jQut3sqtGQT4A9YdQvOeeAjU6aA==}
+    dependencies:
+      lib0: 0.2.62
+    dev: false

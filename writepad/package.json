@@ -1,0 +1,21 @@
+{
+  "name": "writepad-srv",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.mjs",
+  "scripts": {
+    "serve": "./serve.sh"
+  },
+  "keywords": [
+    "tiptap",
+    "editing",
+    "collaboration"
+  ],
+  "author": "Hans Tognon",
+  "dependencies": {
+    "@hocuspocus/server": "^1.0.1",
+    "y-protocols": "^1.0.5",
+    "yjs": "^13.5.45"
+  }
+}
