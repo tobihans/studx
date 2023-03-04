@@ -1,160 +1,120 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Whiteboard</title>
         <meta charset="utf-8" />
         <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
+        <script src="https://unpkg.com/phosphor-icons"></script>
     </head>
-
-    <body style="display: none">
+    <body class="hidden">
         <!---Whiteboard container -!-->
         <div id="whiteboardContainer"></div>
 
         <!---Toolbar -!-->
-        <div id="toolbar" style="position: absolute; top: 10px; left: 10px">
-            <div class="btn-group">
+        <div
+            id="toolbar"
+            class="fixed top-0 left-1/2 transform -translate-x-1/2 h-10 my-2 min-w-20 px-1 flex items-center gap-2 rounded text-gray-900 bg-gray-900"
+        >
+            <button tool="mouse" data-tippy-content="Mouse" class="whiteboard-tool active">
+                <i class="ph-cursor"></i>
+            </button>
+
+            <button tool="hand" data-tippy-content="Hand" class="whiteboard-tool">
+                <i class="ph-hand"></i>
+            </button>
+
+            <button tool="pen" data-tippy-content="Pen" class="whiteboard-tool">
+                <i class="ph-pen"></i>
+            </button>
+
+            <button tool="line" data-tippy-content="Line" class="whiteboard-tool">
+                <i class="ph-line-segment"></i>
+            </button>
+
+            <button tool="rect" data-tippy-content="Square" class="whiteboard-tool">
+                <i class="ph-square"></i>
+            </button>
+
+            <button tool="circle" data-tippy-content="Circle" class="whiteboard-tool">
+                <i class="ph-circle"></i>
+            </button>
+
+            <button tool="eraser" data-tippy-content="Eraser" class="whiteboard-tool">
+                <i class="ph-eraser"></i>
+            </button>
+            <button id="more-tools-btn" class="whiteboard-more-tool-btn">
+                <i class="ph-dots-three"></i>
+            </button>
+            <div id="more-tools-dropdown" class="bg-gray-900 gap-2 flex flex-wrap">
                 <button
                     id="whiteboardLockBtn"
+                    class="whiteboard-switch"
                     style="background-color: orange"
-                    title="View and Write"
+                    data-tippy-content="View and Write"
                     type="button"
                 >
-                    <i class="fa fa-lock"></i>
-                </button>
-                <button id="whiteboardUnlockBtn" title="View Only" type="button">
-                    <i class="fa fa-lock-open"></i>
-                </button>
-            </div>
-
-            <div class="btn-group whiteboard-edit-group">
-                <button id="whiteboardTrashBtn" title="Clear the whiteboard" type="button">
-                    <i class="fa fa-trash"></i>
+                    <i class="ph-lock"></i>
                 </button>
                 <button
-                    style="display: none"
+                    id="whiteboardUnlockBtn"
+                    class="whiteboard-switch"
+                    data-tippy-content="View Only"
+                    type="button"
+                >
+                    <i class="ph-lock-open"></i>
+                </button>
+                <button
+                    id="whiteboardTrashBtn"
+                    class="whiteboard-switch"
+                    data-tippy-content="Clear the whiteboard"
+                    type="button"
+                >
+                    <i class="ph-trash"></i>
+                </button>
+                <button
+                    class="hidden"
                     id="whiteboardTrashBtnConfirm"
-                    title="Confirm clear..."
+                    data-tippy-content="Confirm clear..."
                     type="button"
                 >
-                    <i class="fa fa-check"></i>
-                </button>
-                <button id="whiteboardUndoBtn" title="Undo your last step" type="button">
-                    <i class="fa fa-undo"></i>
-                </button>
-                <button id="whiteboardRedoBtn" title="Redo your last undo" type="button">
-                    <i class="fa fa-redo"></i>
-                </button>
-            </div>
-
-            <div class="btn-group whiteboard-edit-group">
-                <button tool="mouse" title="Take the mouse" type="button" class="whiteboard-tool">
-                    <i class="fa fa-mouse-pointer"></i>
+                    <i class="ph-check"></i>
                 </button>
                 <button
-                    tool="hand"
-                    title="pan the whiteboard"
+                    id="whiteboardUndoBtn"
+                    class="whiteboard-switch"
+                    data-tippy-content="Undo your last step"
                     type="button"
-                    class="whiteboard-tool"
                 >
-                    <i class="fa fa-hand-paper" aria-hidden="true"></i>
-                </button>
-
-                <button
-                    style="padding-bottom: 11px"
-                    tool="recSelect"
-                    title="Select an area"
-                    type="button"
-                    class="whiteboard-tool"
-                >
-                    <img src="./images/dottedRec.png" />
+                    <i class="ph-arrow-arc-left"></i>
                 </button>
                 <button
-                    tool="pen"
-                    title="Take the pen"
+                    id="whiteboardRedoBtn"
+                    class="whiteboard-switch"
+                    data-tippy-content="Redo your last undo"
                     type="button"
-                    class="whiteboard-tool active"
                 >
-                    <i class="fa fa-pencil-alt"></i>
+                    <i class="ph-arrow-arc-right"></i>
                 </button>
                 <button
-                    style="padding-bottom: 8px; padding-top: 6px"
-                    tool="line"
-                    title="draw a line"
+                    tool="text"
+                    data-tippy-content="write text"
                     type="button"
-                    class="whiteboard-tool"
+                    class="whiteboard-switch"
                 >
-                    ╱
-                </button>
-                <button tool="rect" title="draw a rectangle" type="button" class="whiteboard-tool">
-                    <i class="far fa-square"></i>
-                </button>
-                <button tool="circle" title="draw a circle" type="button" class="whiteboard-tool">
-                    <i class="far fa-circle"></i>
-                </button>
-                <button tool="eraser" title="take the eraser" type="button" class="whiteboard-tool">
-                    <i class="fa fa-eraser"></i>
-                </button>
-            </div>
-
-            <div class="btn-group whiteboard-edit-group">
-                <button style="width: 190px; cursor: default">
-                    <div
-                        class="activeToolIcon"
-                        style="position: absolute; top: 2px; left: 2px; font-size: 0.6em"
-                    >
-                        <i class="fa fa-pencil-alt"></i>
-                    </div>
-                    <img
-                        style="
-                            position: absolute;
-                            left: 11px;
-                            top: 16px;
-                            height: 14px;
-                            width: 130px;
-                        "
-                        src="./images/slider-background.svg"
-                    />
-                    <input
-                        title="Thickness"
-                        id="whiteboardThicknessSlider"
-                        style="position: absolute; left: 9px; width: 130px; top: 16px"
-                        type="range"
-                        min="1"
-                        max="50"
-                        value="3"
-                    />
-                    <div
-                        id="whiteboardColorpicker"
-                        style="
-                            position: absolute;
-                            left: 155px;
-                            top: 10px;
-                            width: 26px;
-                            height: 23px;
-                            border-radius: 3px;
-                            border: 1px solid darkgrey;
-                        "
-                        data-color="#000000"
-                    ></div>
-                </button>
-            </div>
-
-            <div class="btn-group whiteboard-edit-group">
-                <button tool="text" title="write text" type="button" class="whiteboard-tool">
-                    <i class="fas fa-font"></i>
+                    <i class="ph-text-aa"></i>
                 </button>
                 <button
                     tool="stickynote"
-                    title="place a sticky note"
+                    data-tippy-content="place a sticky note"
                     type="button"
-                    class="whiteboard-tool"
+                    class="whiteboard-switch"
                 >
-                    <i class="fas fa-sticky-note"></i>
+                    <i class="ph-note-blank"></i>
                 </button>
                 <button
                     id="textboxBackgroundColorPickerBtn"
                     style="display: none"
-                    title="text background-color"
+                    data-tippy-content="text background-color"
+                    class="whiteboard-switch"
                 >
                     <div
                         id="textboxBackgroundColorPicker"
@@ -170,30 +130,13 @@
                         data-color="#f5f587"
                     ></div>
                 </button>
-            </div>
-
-            <div class="btn-group whiteboard-edit-group">
-                <button id="addImgToCanvasBtn" title="Upload Image to whiteboard" type="button">
-                    <i class="fas fa-image"></i>
-                    <i
-                        style="
-                            position: absolute;
-                            top: 3px;
-                            left: 2px;
-                            color: #000000;
-                            font-size: 0.5em;
-                        "
-                        class="fas fa-upload"
-                    ></i>
-                </button>
-
                 <button
-                    style="position: relative"
-                    id="uploadJsonBtn"
-                    title="Load saved JSON to whiteboard"
+                    id="addImgToCanvasBtn"
+                    data-tippy-content="Upload Image to whiteboard"
                     type="button"
+                    class="whiteboard-switch"
                 >
-                    <i class="far fa-file-alt"></i>
+                    <i class="ph-image"></i>
                     <i
                         style="
                             position: absolute;
@@ -202,34 +145,19 @@
                             color: #000000;
                             font-size: 0.5em;
                         "
-                        class="fas fa-upload"
+                        class="ph-upload"
                     ></i>
                 </button>
 
-                <input style="display: none" id="myFile" type="file" />
-            </div>
-
-            <div class="btn-group">
-                <button id="saveAsImageBtn" title="Save whiteboard as image" type="button">
-                    <i class="fas fa-image"></i>
-                    <i
-                        style="
-                            position: absolute;
-                            top: 3px;
-                            left: 2px;
-                            color: #000000;
-                            font-size: 0.5em;
-                        "
-                        class="fas fa-save"
-                    ></i>
-                </button>
+                <input class="hidden" id="myFile" type="file" />
+                <input type="file" id="manualFileUpload" class="hidden" name="myfile" />
                 <button
-                    style="position: relative; display: none"
-                    id="uploadWebDavBtn"
-                    title="Save whiteboard to webdav"
+                    id="saveAsImageBtn"
+                    data-tippy-content="Save whiteboard as image"
                     type="button"
+                    class="whiteboard-switch"
                 >
-                    <i class="fas fa-globe"></i>
+                    <i class="ph-download"></i>
                     <i
                         style="
                             position: absolute;
@@ -238,87 +166,52 @@
                             color: #000000;
                             font-size: 0.5em;
                         "
-                        class="fas fa-save"
-                    ></i>
-                </button>
-                <button
-                    style="position: relative"
-                    id="saveAsJSONBtn"
-                    title="Save whiteboard as JSON"
-                    type="button"
-                >
-                    <i class="far fa-file-alt"></i>
-                    <i
-                        style="
-                            position: absolute;
-                            top: 3px;
-                            left: 2px;
-                            color: #000000;
-                            font-size: 0.5em;
-                        "
-                        class="fas fa-save"
+                        class="ph-floppy-disk"
                     ></i>
                 </button>
 
-                <button id="shareWhiteboardBtn" title="share whiteboard" type="button">
-                    <i class="fas fa-share-square"></i>
-                </button>
-
-                <button id="displayWhiteboardInfoBtn" title="Show whiteboard info" type="button">
-                    <i class="fas fa-info-circle"></i>
+                <button class="mx-0.5 flex justify-start items-center">
+                    <input
+                        data-tippy-content="Thickness"
+                        id="whiteboardThicknessSlider"
+                        type="range"
+                        min="1"
+                        max="50"
+                        value="3"
+                    />
                 </button>
             </div>
 
-            <div class="btn-group minGroup">
-                <button
-                    style="width: 100%; padding: 11px 11px"
-                    id="minMaxBtn"
-                    title="hide buttons"
-                    type="button"
-                >
-                    <i
-                        id="minBtn"
-                        style="position: relative; left: -5px"
-                        class="fas fa-angle-left"
-                    ></i>
-                    <i
-                        id="maxBtn"
-                        style="position: relative; left: -5px; display: none"
-                        class="fas fa-angle-right"
-                    ></i>
-                </button>
+            <div id="whiteboardInfoContainer" class="hidden">
+                <p><b>Whiteboard information:</b></p>
+                <p># connected users: <i id="connectedUsersCount">0</i></p>
+                <p>Smallest screen resolution: <i id="smallestScreenResolution">Unknown.</i></p>
+                <p># msg. sent to server: <i id="messageSentCount">0</i></p>
+                <p># msg. received from server: <i id="messageReceivedCount">0</i></p>
             </div>
-        </div>
 
-        <div id="whiteboardInfoContainer">
-            <p><b>Whiteboard information:</b></p>
-            <p># connected users: <i id="connectedUsersCount">0</i></p>
-            <p>Smallest screen resolution: <i id="smallestScreenResolution">Unknown.</i></p>
-            <p># msg. sent to server: <i id="messageSentCount">0</i></p>
-            <p># msg. received from server: <i id="messageReceivedCount">0</i></p>
-        </div>
-
-        <div id="shareWhiteboardDialog" class="displayNone">
-            <div class="shareWhiteboardDialogContent">
-                <button
-                    class="shareWhiteboardDialogItem"
-                    id="shareWhiteboardDialogCopyReadOnlyLink"
-                >
-                    <i class="fa fa-lock"></i>&nbsp;Share read-only link
-                </button>
-                <button
-                    class="shareWhiteboardDialogItem displayNone"
-                    id="shareWhiteboardDialogCopyReadWriteLink"
-                >
-                    <i class="fa fa-lock-open"></i>&nbsp;Share read/write link
-                </button>
-                <button class="shareWhiteboardDialogItem" id="shareWhiteboardDialogGoBack">
-                    <b>Go back to the whiteboard</b>
-                </button>
-                <p
-                    class="shareWhiteboardDialogItem displayNone"
-                    id="shareWhiteboardDialogMessage"
-                ></p>
+            <div id="shareWhiteboardDialog" class="hidden">
+                <div class="shareWhiteboardDialogContent">
+                    <button
+                        class="shareWhiteboardDialogItem"
+                        id="shareWhiteboardDialogCopyReadOnlyLink"
+                    >
+                        <i class="ph-lock"></i>&nbsp;Share read-only link
+                    </button>
+                    <button
+                        class="shareWhiteboardDialogItem displayNone"
+                        id="shareWhiteboardDialogCopyReadWriteLink"
+                    >
+                        <i class="ph-lock-open"></i>&nbsp;Share read/write link
+                    </button>
+                    <button class="shareWhiteboardDialogItem" id="shareWhiteboardDialogGoBack">
+                        <b>Go back to the whiteboard</b>
+                    </button>
+                    <p
+                        class="shareWhiteboardDialogItem displayNone"
+                        id="shareWhiteboardDialogMessage"
+                    ></p>
+                </div>
             </div>
         </div>
     </body>

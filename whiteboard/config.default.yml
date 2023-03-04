@@ -26,7 +26,7 @@ frontend:
     displayInfo: false
 
   # Show the smallest screen indicator ? (with dotted lines) -- boolean
-  showSmallestScreenIndicator: true
+  showSmallestScreenIndicator: false
 
   # Image download format, can be "png", "jpeg" (or "webp" -> only working on chrome) -- string
   imageDownloadFormat: "png"
@@ -35,10 +35,10 @@ frontend:
   imageURL: ""
 
   # draw the background grid to images on download ? (If True, even PNGs are also not transparent anymore) -- boolean
-  drawBackgroundGrid: false
+  drawBackgroundGrid: true
 
   # Background Image; Can be "bg_grid.png", "bg_dots.png" or "bg_white.png" (Place your background at assets/images if you want your own background)  -- string
-  backgroundGridImage: "bg_grid.png"
+  backgroundGridImage: "bg_white.png"
 
   # Frontend performance tweaks
   performance:

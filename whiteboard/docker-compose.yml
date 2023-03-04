@@ -1,12 +1,14 @@
-version: "3.1"
+version: "3.2"
 services:
   whiteboard:
-    image: rofl256/whiteboard
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: whiteboard
+    container_name: studx_whiteboard
     restart: always
-    ports:
-      - "8080:8080/tcp"
     command: --config=./config.default.yml
     volumes:
-      - ./data/uploads:/opt/app/public/uploads"
-      - ./data/config.yml:/opt/app/config.default.yml:ro
+      - ./data/uploads:/opt/app/public/uploads
+#      - ./data/config.yml:/opt/app/config.default.yml:ro
       - ./data/savedBoards:/opt/app/savedBoards"

@@ -5,14 +5,15 @@ RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
 # Install app dependencies
-COPY ./package.json package-lock.json ./
-RUN npm ci
+COPY ./package.json pnpm-lock.yaml ./
+RUN npm i -g pnpm
+RUN pnpm i
 
 # Bundle frontend
 COPY src ./src
 COPY assets ./assets
 COPY config ./config
-RUN npm run build
+RUN pnpm build
 
 #####################
 # Final image
@@ -27,11 +28,12 @@ MAINTAINER cracker0dks
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
-COPY ./package.json ./package-lock.json config.default.yml ./
-RUN npm ci --only=prod
+COPY ./package.json ./pnpm-lock.yaml config.default.yml ./
+RUN npm i -g pnpm
+RUN pnpm i --prod
 
 COPY scripts ./scripts
 COPY --from=base /opt/app/dist ./dist
 
 EXPOSE 8080
-ENTRYPOINT ["npm", "run", "start"]
+ENTRYPOINT ["pnpm", "start"]

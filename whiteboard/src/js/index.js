@@ -2,10 +2,12 @@ import "jquery-ui/ui/core";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/resizable";
 import "jquery-ui-rotatable/jquery.ui.rotatable";
+// Styles
 import "jquery-ui/themes/base/resizable.css";
+import "tippy.js/dist/tippy.css";
 import "../css/main.css";
+import "../css/app.css";
 
-import "./icons";
 import main from "./main";
 
 $(document).ready(function () {

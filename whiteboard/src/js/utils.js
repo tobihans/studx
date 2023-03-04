@@ -1,3 +1,5 @@
+import tippy from "tippy.js";
+
 /**
  * Compute the euclidean distance between two points
  * @param {Point} p1
@@ -24,4 +26,17 @@ export function getSubDir() {
     }
 
     return subdir;
+}
+
+export function setupToolTips() {
+    tippy("[data-tippy-content]");
+
+    tippy("#more-tools-btn", {
+        trigger: "click",
+        interactive: true,
+        appendTo: document.body, // FIXME: remove this and resolve the warning
+        content() {
+            return document.getElementById("more-tools-dropdown");
+        },
+    });
 }

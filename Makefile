@@ -26,3 +26,6 @@ up:
 down:
 	@docker compose down
 
+.PHONY: setup 
+# help: setup - Setup all for development
+setup: install up

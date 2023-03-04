@@ -23,13 +23,6 @@ This is a lightweight NodeJS collaborative Whiteboard/Sketchboard which can easi
 - REST API
 - Working on PC, Tablet & Mobile
 
-## Projects using this Whiteboard
-
-- [Meetzi](https://meetzi.de/) - WebRtc Conference tool
-- [LAMS](https://www.lamsfoundation.org) - Managing and delivering online Collaboration learning activities
-- [Accelerator](https://github.com/cracker0dks/Accelerator) - WebRtc Conference tool
-- Your Project here...
-
 ## Install the App
 
 You can run this app with and without docker

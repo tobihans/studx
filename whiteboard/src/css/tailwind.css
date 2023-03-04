@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.tippy-box {
+    @apply bg-gray-900;
+}
+
+.whiteboard-tool,
+.whiteboard-switch,
+.whiteboard-more-tool-btn {
+    @apply h-8 w-8 rounded-sm bg-gray-100 flex justify-center items-center hover:opacity-90;
+}
+
+.whiteboard-tool.active:not(:disabled) {
+    @apply bg-orange-300;
+}
+
+#more-tools-dropdown {
+    max-width: 10rem;
+    align-content: center;
+}
+
+#more-tools-dropdown .whiteboard-switch {
+    @apply bg-transparent hover:bg-gray-50 hover:text-gray-900 hover:opacity-100;
+}

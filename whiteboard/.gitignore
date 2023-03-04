@@ -71,3 +71,5 @@ typings/
 # Temp swap file
 *.swp
 
+# pnpm
+pnpm-lock.yaml
