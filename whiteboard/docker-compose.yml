@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile
     image: whiteboard
     container_name: studx_whiteboard
-    restart: always
     command: --config=./config.default.yml
     volumes:
       - ./data/uploads:/opt/app/public/uploads

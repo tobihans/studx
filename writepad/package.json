@@ -5,7 +5,7 @@
   "description": "",
   "main": "server.mjs",
   "scripts": {
-    "serve": "./serve.sh"
+    "serve": "node server.mjs"
   },
   "keywords": [
     "tiptap",
