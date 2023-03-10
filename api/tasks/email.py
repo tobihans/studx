@@ -17,7 +17,7 @@ def email_task(
     to: str,
     content: str | None = None,
     template_name: str | None = None,
-    template_context: str | None = None,
+    template_context: dict[str, str] | None = None,
     from_email: str | None = None,
     mime: str = "html",
 ):
