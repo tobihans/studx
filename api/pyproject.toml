@@ -20,6 +20,7 @@ pillow = "^9.4.0"
 django-notifications-hq = "^1.7.0"
 redis = "^4.4.2"
 drf-nested-routers = "^0.93.4"
+polars = "^0.16.12"
 
 
 [tool.poetry.group.dev.dependencies]
