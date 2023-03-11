@@ -1,4 +1,3 @@
-import { dom } from "@fortawesome/fontawesome-svg-core";
 import Point from "./classes/Point";
 import ReadOnlyService from "./services/ReadOnlyService";
 import InfoService from "./services/InfoService";
@@ -109,9 +108,6 @@ const whiteboard = {
             .append(_this.cursorContainer)
             .append(_this.textContainer)
             .append(_this.mouseOverlay);
-
-        // render newly added icons
-        dom.i2svg();
 
         this.canvas = $("#whiteboardCanvas")[0];
         this.canvas.height = $(window).height();
@@ -985,8 +981,6 @@ const whiteboard = {
         };
         imgDiv.rotatable(params);
 
-        // render newly added icons
-        dom.i2svg();
     },
     drawImgToBackground(url, width, height, left, top, rotationAngle) {
         var _this = this;
@@ -1125,8 +1119,6 @@ const whiteboard = {
             textBox.addClass("active");
         }
 
-        // render newly added icons
-        dom.i2svg();
     },
     setTextboxText(txId, text) {
         $("#" + txId)

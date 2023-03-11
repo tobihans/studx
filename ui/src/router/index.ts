@@ -19,11 +19,6 @@ const router = createRouter({
       },
     },
     {
-      path: "/r/:roomId",
-      name: "room",
-      component: () => import("@/views/RoomView.vue"),
-    },
-    {
       path: "/:dashboardContextOrgSlug?",
       component: () => import("@/views/home/HomeView.vue"),
       meta: {
