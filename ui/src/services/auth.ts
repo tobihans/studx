@@ -6,7 +6,7 @@ import { apifetch } from "@/services";
 export const signin = async (request: SignInRequest) => {
   const userStore = useUserStore();
   const { token } = await ofetch(
-    `${import.meta.env.VITE_API_ENDPOINT}/auth/signin`,
+    `${import.meta.env.STUDX_UI_API_ENDPOINT}/auth/signin`,
     {
       method: "POST",
       body: request,
@@ -18,7 +18,7 @@ export const signin = async (request: SignInRequest) => {
 };
 
 export const signup = async (request: SignUpRequest) => {
-  await ofetch(`${import.meta.env.VITE_API_ENDPOINT}/auth/signup`, {
+  await ofetch(`${import.meta.env.STUDX_UI_API_ENDPOINT}/auth/signup`, {
     method: "POST",
     body: request,
   });

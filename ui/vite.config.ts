@@ -10,6 +10,7 @@ import FullReload from "vite-plugin-full-reload";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  envPrefix: "STUDX_UI_",
   plugins: [
     vue(),
     eslintPlugin(),

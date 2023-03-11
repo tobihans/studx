@@ -118,7 +118,9 @@ export class Room extends EventBus {
   }
 
   public get url() {
-    const url = new URL(`${import.meta.env.VITE_ROOMS_WS_ENDPOINT}/${this.id}`);
+    const url = new URL(
+      `${import.meta.env.STUDX_UI_ROOMS_WS_ENDPOINT}/${this.id}`
+    );
 
     if (this.metadata?.participantName) {
       url.searchParams.set("name", this.metadata.participantName);

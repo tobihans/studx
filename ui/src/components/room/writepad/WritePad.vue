@@ -36,7 +36,7 @@ const currentUser = ref({
 });
 const status = ref("connecting");
 const provider = new HocuspocusProvider({
-  url: import.meta.env.VITE_WRITEPAD_ENDPOINT,
+  url: import.meta.env.STUDX_UI_WRITEPAD_ENDPOINT,
   name: `doc-${props.wid}`,
 });
 provider.on("status", (event: { status: string }) => {

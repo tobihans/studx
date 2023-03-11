@@ -7,7 +7,7 @@ const props = defineProps({
   wid: String,
 });
 
-const src = `${import.meta.env.VITE_WHITEBOARD_ENDPOINT}?whiteboardid=${
+const src = `${import.meta.env.STUDX_UI_WHITEBOARD_ENDPOINT}?whiteboardid=${
   props.wid ?? "822f1c42-faa2-4fea-9807-680709d65045"
 }`;
 </script>
