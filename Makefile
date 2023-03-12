@@ -9,6 +9,11 @@ SHELL := bash
 help:
 	@grep "^# help:" Makefile | sed 's/\# help\: //' | sed 's/\# help\://'
 
+.PHONY: envfile 
+# help: envfile - Copy envfile to .env
+envfile:
+	@[[ ! -f .env ]] && cp env.template .env || true
+
 .PHONY: install-deps
 # help: install-deps - Attempts to install necessary dependencies for all sub projects.
 install-deps:
@@ -24,14 +29,12 @@ up:
 down:
 	@docker compose down
 
-.PHONY: setup 
-# help: setup - Setup all for development.
-setup: install-deps up
-	@[[ ! -f .env ]] && cp env.template .env
-	@exit 0
-
 .PHONY: caddyfile 
 # help: caddyfile - Generate a Caddyfile on the template, replacing env vars properly substituted.
 caddyfile:
 	@bash -c "source .env && envsubst < Caddyfile.template > Caddyfile"
+
+.PHONY: setup 
+# help: setup - Setup all for development.
+setup: envfile install-deps up
 
