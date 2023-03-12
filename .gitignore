@@ -1,3 +1,4 @@
 .env
 # Auto generated
 Caddyfile
+container/
