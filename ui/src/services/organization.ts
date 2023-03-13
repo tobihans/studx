@@ -47,6 +47,16 @@ export const addUsertoOrganization = async (
   });
 };
 
+export const addUsersInBulktoOrganization = async (
+  slug: string,
+  form: FormData,
+) => {
+  return await apifetch(`orgs/${slug}/members/bulk/`, {
+    method: "POST",
+    body: form,
+  });
+};
+
 export const removeUserFromOrganization = async (
   slug: string,
   username: string

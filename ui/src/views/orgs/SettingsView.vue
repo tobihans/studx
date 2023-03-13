@@ -7,6 +7,7 @@ import {
   removeUserFromOrganization,
   updateOrganization,
   updateOrgPicture,
+  addUsersInBulktoOrganization
 } from "@/services/organization";
 import { notifyError } from "@/utils";
 import { useOrgsStore } from "@/stores/organization";
@@ -18,7 +19,6 @@ import { storeToRefs } from "pinia";
 import { computed, onMounted, ref, watch } from "vue";
 import { format as formatTime } from "timeago.js";
 import PhTrash from "~icons/ph/trash";
-// import PhPencil from "~icons/ph/pencil";
 import PhClock from "~icons/ph/clock";
 import { useFileDialog } from "@vueuse/core";
 import OrganizationPlaceholderURL from "@/assets/img/organization.svg";
@@ -40,11 +40,11 @@ const users = computed(() =>
   })
 );
 
-const { files, open } = useFileDialog({
+const { files: profilePicture, open: openProfilePicker } = useFileDialog({
   accept: "image/png,image/jpeg,image/bmp",
 });
 
-watch(files, (files) => {
+watch(profilePicture, (files) => {
   if (files) {
     const formData = new FormData();
     formData.append("image", files[0]);
@@ -54,7 +54,7 @@ watch(files, (files) => {
   }
 });
 
-const onSubmit = async (request: unknown) => {
+const onUpdateOrgParams = async (request: unknown) => {
   try {
     await updateOrganization(
       org.value?.org.slug,
@@ -93,6 +93,24 @@ const removeMember = async (username: string) => {
   }
 };
 
+// Add members in bulk
+const { files: usersCSVFiles, open: openCSVPicker } = useFileDialog({
+  accept: "text/csv",
+});
+
+watch(usersCSVFiles, async (files) => {
+  if (files) {
+    const form = new FormData();
+    form.append("file", files[0]);
+    try {
+      await addUsersInBulktoOrganization(org.value?.org?.slug, form);
+    }
+    catch {
+        notifyError();
+    }
+  }
+});
+
 onMounted(async () => {
   members.value = await getOrganizationMembers(org.value.org?.slug);
 });
@@ -110,7 +128,10 @@ onMounted(async () => {
         <h2>General</h2>
         <hr class="my-2" />
       </div>
-      <Form @submit="onSubmit" :validation-schema="CreateOrganizationSchema">
+      <Form
+        @submit="onUpdateOrgParams"
+        :validation-schema="CreateOrganizationSchema"
+      >
         <div class="my-4 flex gap-3 items-end">
           <img
             class="object-cover w-24 h-24 rounded"
@@ -119,9 +140,9 @@ onMounted(async () => {
             aria-hidden="true"
           />
           <button
-            @click="() => open()"
+            @click="() => openProfilePicker()"
             type="button"
-            class="btn h-auto bg-transparent text-purple-600 border-purple-600 focus:bg-transparent px-3 py-1.5"
+            class="btn h-auto bg-transparent text-purple-600 border-purple-600 focus:bg-transparent px-3 py-1.5 hover:text-white"
           >
             Change
           </button>
@@ -173,6 +194,13 @@ onMounted(async () => {
           <button @submit.prevent class="btn">Add</button>
         </span>
       </Form>
+      <button
+        type="button"
+        class="btn h-auto bg-transparent text-purple-600 border-purple-600 focus:bg-transparent px-3 py-1.5 hover:text-white"
+        @click.prevent="() => openCSVPicker()"
+      >
+        Add in bulk
+      </button>
       <div>
         <div v-for="user in users" :key="user">
           <div
@@ -202,11 +230,6 @@ onMounted(async () => {
                 <span>Joined {{ user.joinedAt }}</span>
               </div>
             </div>
-            <!-- <button -->
-            <!--   class="p-2 ml-4 text-gray-500 rounded-sm dark:text-gray-100" -->
-            <!-- > -->
-            <!--   <PhPencil class="w-4 h-4" /> -->
-            <!-- </button> -->
             <button
               @click.prevent="removeMember(user.username)"
               class="p-2 ml-4 text-red-500 rounded-sm dark:text-red-100"

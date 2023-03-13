@@ -172,6 +172,11 @@ class OrganizationViewSet(viewsets.ViewSet):
                 )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(detail=True, url_path=r"members/bulk", methods=["POST"])
+    def add_members_in_bulk(self, request: Request, slug: str):
+        print(request.FILES)
+        return Response(status=status.HTTP_201_CREATED)
+
     @action(detail=True, url_path=r"membership/(?P<username>\w+)", methods=["GET"])
     def membership(self, request: Request, slug: str, username: str):
         membership = OrganizationMembership.objects.filter(
