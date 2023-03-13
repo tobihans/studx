@@ -38,6 +38,10 @@ const config = {
                     },
                 ],
             },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf|svg)$/i,
+                type: 'asset/resource',
+            }
         ],
     },
     plugins: [

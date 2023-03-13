@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico" />
-        <script src="https://unpkg.com/phosphor-icons"></script>
     </head>
     <body class="hidden">
         <!---Whiteboard container -!-->
@@ -15,34 +14,34 @@
             class="fixed top-0 left-1/2 transform -translate-x-1/2 h-10 my-2 min-w-20 px-1 flex items-center gap-2 rounded text-gray-900 bg-gray-900"
         >
             <button tool="mouse" data-tippy-content="Mouse" class="whiteboard-tool active">
-                <i class="ph-cursor"></i>
+                <i class="ph ph-cursor"></i>
             </button>
 
             <button tool="hand" data-tippy-content="Hand" class="whiteboard-tool">
-                <i class="ph-hand"></i>
+                <i class="ph ph-hand"></i>
             </button>
 
             <button tool="pen" data-tippy-content="Pen" class="whiteboard-tool">
-                <i class="ph-pen"></i>
+                <i class="ph ph-pen"></i>
             </button>
 
             <button tool="line" data-tippy-content="Line" class="whiteboard-tool">
-                <i class="ph-line-segment"></i>
+                <i class="ph ph-line-segment"></i>
             </button>
 
             <button tool="rect" data-tippy-content="Square" class="whiteboard-tool">
-                <i class="ph-square"></i>
+                <i class="ph ph-square"></i>
             </button>
 
             <button tool="circle" data-tippy-content="Circle" class="whiteboard-tool">
-                <i class="ph-circle"></i>
+                <i class="ph ph-circle"></i>
             </button>
 
             <button tool="eraser" data-tippy-content="Eraser" class="whiteboard-tool">
-                <i class="ph-eraser"></i>
+                <i class="ph ph-eraser"></i>
             </button>
             <button id="more-tools-btn" class="whiteboard-more-tool-btn">
-                <i class="ph-dots-three"></i>
+                <i class="ph ph-dots-three"></i>
             </button>
             <div id="more-tools-dropdown" class="bg-gray-900 gap-2 flex flex-wrap">
                 <button
@@ -52,7 +51,7 @@
                     data-tippy-content="View and Write"
                     type="button"
                 >
-                    <i class="ph-lock"></i>
+                    <i class="ph ph-lock"></i>
                 </button>
                 <button
                     id="whiteboardUnlockBtn"
@@ -60,7 +59,7 @@
                     data-tippy-content="View Only"
                     type="button"
                 >
-                    <i class="ph-lock-open"></i>
+                    <i class="ph ph-lock-open"></i>
                 </button>
                 <button
                     id="whiteboardTrashBtn"
@@ -68,7 +67,7 @@
                     data-tippy-content="Clear the whiteboard"
                     type="button"
                 >
-                    <i class="ph-trash"></i>
+                    <i class="ph ph-trash"></i>
                 </button>
                 <button
                     class="hidden"
@@ -76,7 +75,7 @@
                     data-tippy-content="Confirm clear..."
                     type="button"
                 >
-                    <i class="ph-check"></i>
+                    <i class="ph ph-check"></i>
                 </button>
                 <button
                     id="whiteboardUndoBtn"
@@ -84,7 +83,7 @@
                     data-tippy-content="Undo your last step"
                     type="button"
                 >
-                    <i class="ph-arrow-arc-left"></i>
+                    <i class="ph ph-arrow-arc-left"></i>
                 </button>
                 <button
                     id="whiteboardRedoBtn"
@@ -92,23 +91,7 @@
                     data-tippy-content="Redo your last undo"
                     type="button"
                 >
-                    <i class="ph-arrow-arc-right"></i>
-                </button>
-                <button
-                    tool="text"
-                    data-tippy-content="write text"
-                    type="button"
-                    class="whiteboard-switch"
-                >
-                    <i class="ph-text-aa"></i>
-                </button>
-                <button
-                    tool="stickynote"
-                    data-tippy-content="place a sticky note"
-                    type="button"
-                    class="whiteboard-switch"
-                >
-                    <i class="ph-note-blank"></i>
+                    <i class="ph ph-arrow-arc-right"></i>
                 </button>
                 <button
                     id="textboxBackgroundColorPickerBtn"
@@ -136,7 +119,7 @@
                     type="button"
                     class="whiteboard-switch"
                 >
-                    <i class="ph-image"></i>
+                    <i class="ph ph-image"></i>
                     <i
                         style="
                             position: absolute;
@@ -145,7 +128,7 @@
                             color: #000000;
                             font-size: 0.5em;
                         "
-                        class="ph-upload"
+                        class="ph ph-upload"
                     ></i>
                 </button>
 
@@ -157,7 +140,7 @@
                     type="button"
                     class="whiteboard-switch"
                 >
-                    <i class="ph-download"></i>
+                    <i class="ph ph-download"></i>
                     <i
                         style="
                             position: absolute;
@@ -166,12 +149,13 @@
                             color: #000000;
                             font-size: 0.5em;
                         "
-                        class="ph-floppy-disk"
+                        class="ph ph-floppy-disk"
                     ></i>
                 </button>
 
-                <button class="mx-0.5 flex justify-start items-center">
+                <button class="w-full mx-0.5 flex justify-start items-center">
                     <input
+                        class="w-full"
                         data-tippy-content="Thickness"
                         id="whiteboardThicknessSlider"
                         type="range"
@@ -196,13 +180,13 @@
                         class="shareWhiteboardDialogItem"
                         id="shareWhiteboardDialogCopyReadOnlyLink"
                     >
-                        <i class="ph-lock"></i>&nbsp;Share read-only link
+                        <i class="ph ph-lock"></i>&nbsp;Share read-only link
                     </button>
                     <button
                         class="shareWhiteboardDialogItem displayNone"
                         id="shareWhiteboardDialogCopyReadWriteLink"
                     >
-                        <i class="ph-lock-open"></i>&nbsp;Share read/write link
+                        <i class="ph ph-lock-open"></i>&nbsp;Share read/write link
                     </button>
                     <button class="shareWhiteboardDialogItem" id="shareWhiteboardDialogGoBack">
                         <b>Go back to the whiteboard</b>
