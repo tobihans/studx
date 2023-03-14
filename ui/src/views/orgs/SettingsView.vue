@@ -7,7 +7,7 @@ import {
   removeUserFromOrganization,
   updateOrganization,
   updateOrgPicture,
-  addUsersInBulktoOrganization
+  addUsersInBulktoOrganization,
 } from "@/services/organization";
 import { notifyError } from "@/utils";
 import { useOrgsStore } from "@/stores/organization";
@@ -23,6 +23,7 @@ import PhClock from "~icons/ph/clock";
 import { useFileDialog } from "@vueuse/core";
 import OrganizationPlaceholderURL from "@/assets/img/organization.svg";
 import UserPlaceholderURL from "@/assets/img/user.svg";
+import { notify } from "@kyvg/vue3-notification";
 
 const { org } = storeToRefs(useOrgsStore());
 const members = ref();
@@ -103,10 +104,18 @@ watch(usersCSVFiles, async (files) => {
     const form = new FormData();
     form.append("file", files[0]);
     try {
-      await addUsersInBulktoOrganization(org.value?.org?.slug, form);
-    }
-    catch {
-        notifyError();
+      const response = await addUsersInBulktoOrganization(
+        org.value?.org?.slug,
+        form
+      );
+
+      notify({
+        title: "Bulk import success.",
+        text: `${response.updated} user(s) updated and ${response.created} created.`,
+        type: "info",
+      });
+    } catch {
+      notifyError();
     }
   }
 });

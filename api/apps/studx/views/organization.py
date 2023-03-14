@@ -2,6 +2,8 @@ import uuid
 from pathlib import Path
 
 from django.contrib.auth import get_user_model
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.utils import timezone
 from notifications.signals import notify
 from rest_framework import permissions, status, viewsets
@@ -11,6 +13,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from apps.studx.models import Organization, OrganizationMembership
+from core import settings
+from tasks.add_members import add_members
 
 from ..serializers import (
     AddMemberSerializer,
@@ -174,8 +178,17 @@ class OrganizationViewSet(viewsets.ViewSet):
 
     @action(detail=True, url_path=r"members/bulk", methods=["POST"])
     def add_members_in_bulk(self, request: Request, slug: str):
-        print(request.FILES)
-        return Response(status=status.HTTP_201_CREATED)
+        file = request.FILES["file"]
+        filepath = default_storage.save(
+            f"{uuid.uuid4()}-{file.name}", ContentFile(file.read())
+        )
+        # TODO: Delay this after you're done
+        count_updated, count_created = add_members(slug, filepath)
+
+        return Response(
+            {"updated": count_updated, "created": count_created},
+            status=status.HTTP_201_CREATED,
+        )
 
     @action(detail=True, url_path=r"membership/(?P<username>\w+)", methods=["GET"])
     def membership(self, request: Request, slug: str, username: str):

@@ -49,7 +49,7 @@ export const addUsertoOrganization = async (
 
 export const addUsersInBulktoOrganization = async (
   slug: string,
-  form: FormData,
+  form: FormData
 ) => {
   return await apifetch(`orgs/${slug}/members/bulk/`, {
     method: "POST",

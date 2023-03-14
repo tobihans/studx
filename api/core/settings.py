@@ -1,11 +1,11 @@
 import os
-
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv(
-    "STUDX_SECRET_KEY", "django-insecure-(-%5bmj^4pf9_w&vw^-vol@#0sr6ncb--qg8)0(=*fg87)t=go"
+    "STUDX_SECRET_KEY",
+    "django-insecure-(-%5bmj^4pf9_w&vw^-vol@#0sr6ncb--qg8)0(=*fg87)t=go",
 )
 
 DEBUG = os.getenv("DEBUG", True)
