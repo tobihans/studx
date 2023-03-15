@@ -2,10 +2,10 @@ const devServerConfig = {
     hot: true,
     proxy: {
         // proxies for the backend
-        "/api": "http://localhost:3000",
-        "/uploads": "http://localhost:3000",
+        "/api": "http://localhost:4000",
+        "/uploads": "http://localhost:4000",
         "/ws-api": {
-            target: "ws://localhost:3000",
+            target: "ws://localhost:4000",
             ws: true,
         },
     },
