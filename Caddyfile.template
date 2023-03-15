@@ -7,19 +7,22 @@ ${STUDX_WRITEPAD_PROXY_HOST} {
 }
 
 ${STUDX_PROXY_HOST} {
-	route /ws/* {
+	encode gzip
+
+	handle /ws/* {
 		reverse_proxy ${STUDX_ROOMS_HOST}
 	}
 
-	route /api* {
+	handle /api* {
 		reverse_proxy ${STUDX_API_HOST}
 	}
 
-	route /media* {
-		reverse_proxy ${STUDX_API_HOST}
+	handle_path /media* {
+		root * ./api/media
+		file_server
 	}
 
-	route /* {
+	handle /* {
 		reverse_proxy ${STUDX_UI_HOST}
 	}
 }
