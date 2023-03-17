@@ -16,26 +16,26 @@ async fn main() -> std::io::Result<()> {
         .with_max_level(Level::INFO)
         .init();
 
-    let address = env::var("ADDRESS")
-        .expect("ADDRESS env var is not set")
+    let address = env::var("STUDX_ROOMS_ADDRESS")
+        .expect("STUDX_ROOMS_ADDRESS env var is not set")
         .parse::<net::SocketAddr>()
-        .expect("ADDRESS is invalid");
+        .expect("STUDX_ROOMS_ADDRESS is invalid");
 
     // Application State
-    let redis_url = env::var("REDIS_URL").expect("REDIS_URL env var is not set");
+    let redis_url = env::var("STUDX_REDIS_URL").expect("STUDX_REDIS_URL env var is not set");
     let redis = redis::Client::open(redis_url).expect("Unable to connect to Redis");
 
     let server = websocket::Server::new(redis.clone()).start();
     let worker_manager = WorkerManager::new();
     let registry = webrtc::registry::Registry::default();
     let transport_ips = {
-        let ip = env::var("MEDIASOUP_IP")
-            .expect("MEDIASOUP_IP is not set")
+        let ip = env::var("STUDX_MEDIASOUP_IP")
+            .expect("STUDX_MEDIASOUP_IP is not set")
             .parse::<net::IpAddr>()
-            .expect("MEDIASOUP_IP is invalid");
-        let announced_ip = env::var("MEDIASOUP_ANNOUNCED_IP").ok().map(|ip| {
+            .expect("STUDX_MEDIASOUP_IP is invalid");
+        let announced_ip = env::var("STUDX_MEDIASOUP_ANNOUNCED_IP").ok().map(|ip| {
             ip.parse::<net::IpAddr>()
-                .expect("MEDIASOUP_ANNOUNCED_IP is invalid")
+                .expect("STUDX_MEDIASOUP_ANNOUNCED_IP is invalid")
         });
 
         (ip, announced_ip)
