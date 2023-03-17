@@ -34,9 +34,9 @@ down:
 caddyfile:
 	@bash -c "source .env && envsubst < Caddyfile.template > Caddyfile"
 
-.PHONY: kitty 
-# help: kitty - Starts a kitty session with all modules running
-kitty:
+.PHONY: dev
+# help: dev - Starts a kitty session with all modules running
+dev:
 	@bash -c "source .env && kitty --session \$$PWD/kitty.conf"
 
 .PHONY: setup 
