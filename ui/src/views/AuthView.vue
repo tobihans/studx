@@ -8,7 +8,8 @@ import type { SignInRequest, SignUpRequest } from "@/schemas/auth";
 import { SignInSchema, SignUpSchema } from "@/schemas/auth";
 import { notifyError } from "@/utils";
 
-const isSignupOperation = ref(useRoute().query.action === "signup");
+const route = useRoute();
+const isSignupOperation = ref(route.query.action === "signup");
 const isSubmitDisabled = ref(false);
 const router = useRouter();
 
@@ -21,8 +22,7 @@ const submit = async (request: unknown) => {
       isSignupOperation.value = false;
     } else {
       await signin(request as SignInRequest);
-      // TODO: Redirect user to where he was going before if it exists
-      await router.push("/");
+      await router.push(route.query.next?.toString() || '/');
     }
 
     isSubmitDisabled.value = false;

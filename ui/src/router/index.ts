@@ -63,7 +63,11 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   const userStore = useUserStore();
-  const loginRoute = { name: "authenticate" };
+  const loginRoute = {
+    name: "authenticate", query: {
+      next: router.resolve(to).fullPath,
+    }
+  };
 
   if (to.meta.requiresAuth) {
     const token = userStore.token;
