@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import { whoAmI } from "@/services/auth";
-import { beforeHomeEnter } from "@/router/guards";
+import { beforeHomeEnter, checkMeetingID } from "@/router/guards";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +45,7 @@ const router = createRouter({
           path: "meetings/:meetingId?",
           name: "meetings",
           component: () => import("@/views/meetings/IndexView.vue"),
+          beforeEnter: [checkMeetingID],
         },
         {
           path: "settings",
@@ -54,6 +55,7 @@ const router = createRouter({
       ],
     },
     {
+      // FIXME: Can we finally preserve the path without url encoding it?
       path: "/:path(.*)*",
       name: "404",
       component: () => import("@/views/404View.vue"),
@@ -64,9 +66,10 @@ const router = createRouter({
 router.beforeEach(async (to) => {
   const userStore = useUserStore();
   const loginRoute = {
-    name: "authenticate", query: {
+    name: "authenticate",
+    query: {
       next: router.resolve(to).fullPath,
-    }
+    },
   };
 
   if (to.meta.requiresAuth) {

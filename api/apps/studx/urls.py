@@ -1,7 +1,6 @@
+from apps.studx.views.notifications import NotificationsViewSet
 from django.urls import include, path
 from rest_framework_nested import routers
-
-from apps.studx.views.notifications import NotificationsViewSet
 
 from .views.events import EventsViewSet
 from .views.organization import OrganizationViewSet

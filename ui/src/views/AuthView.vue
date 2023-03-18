@@ -22,7 +22,7 @@ const submit = async (request: unknown) => {
       isSignupOperation.value = false;
     } else {
       await signin(request as SignInRequest);
-      await router.push(route.query.next?.toString() || '/');
+      await router.push(route.query.next?.toString() || "/");
     }
 
     isSubmitDisabled.value = false;

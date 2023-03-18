@@ -1,8 +1,7 @@
 from celery import Task
+from core.celery import app
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-
-from core.celery import app
 
 
 @app.task(

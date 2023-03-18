@@ -3,6 +3,7 @@ import { getUserMembership } from "@/services/organization";
 import { useUserStore } from "@/stores/user";
 import type { RouteLocationNormalized } from "vue-router";
 import { notifyError } from "@/utils";
+import { getEvent } from "@/services/events";
 
 export const beforeHomeEnter = async (to: RouteLocationNormalized) => {
   const orgStore = useOrgsStore();
@@ -46,5 +47,28 @@ export const beforeHomeEnter = async (to: RouteLocationNormalized) => {
   } catch {
     notifyError();
     return { name: "404", params: { path: dashboardContextOrgSlug } };
+  }
+};
+
+export const checkMeetingID = async (to: RouteLocationNormalized) => {
+  const meetingId = String(to.params.meetingId);
+
+  if (!meetingId) return;
+
+  const orgStore = useOrgsStore();
+
+  try {
+    const event = await getEvent(orgStore.org.org.slug, meetingId);
+
+    to.meta.event = event;
+  } catch {
+    return {
+      name: "404",
+      params: {
+        path: decodeURIComponent(to.path.slice(1)),
+      },
+      query: to.query,
+      hash: to.hash,
+    };
   }
 };

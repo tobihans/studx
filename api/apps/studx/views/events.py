@@ -1,11 +1,12 @@
-from django.db.models import Q
-from notifications.signals import notify
-from rest_framework import permissions, status, viewsets
-from rest_framework.request import Request
-from rest_framework.response import Response
-
 from apps.studx.models import Event, Organization, OrganizationMembership
 from apps.studx.serializers import CreateEventSerializer, EventSerializer
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
+from notifications.signals import notify
+from rest_framework import permissions, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.request import Request
+from rest_framework.response import Response
 
 
 class EventsViewSet(viewsets.ViewSet):
@@ -70,3 +71,16 @@ class EventsViewSet(viewsets.ViewSet):
             event.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    # See https://stackoverflow.com/a/18516125/15021293 for UUID regex
+    @action(
+        detail=False,
+        url_path=r"by-id/(?P<meeting_id>[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12})",
+        methods=["GET"],
+    )
+    def event_by_meeting_id(self, request: Request, org_slug: str, meeting_id: str):
+        event = get_object_or_404(
+            Event, meeting_id__iexact=meeting_id, org__slug=org_slug
+        )
+
+        return Response(EventSerializer(event).data, status=status.HTTP_200_OK)
