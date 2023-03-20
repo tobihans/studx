@@ -41,5 +41,5 @@ dev:
 
 .PHONY: setup 
 # help: setup - Setup all for development.
-setup: envfile install-deps up
+setup: envfile caddyfile install-deps up
 
