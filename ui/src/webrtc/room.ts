@@ -264,6 +264,9 @@ export class Room extends EventBus {
 
       if (!participantSession.hasTracks()) {
         this.#participants.delete(sessionId);
+        this.#store.participants = this.#store.participants.filter(
+          (participant) => participant.sessionId !== sessionId
+        );
         this.emit("sessionClosed", { sessionId });
       }
     }
