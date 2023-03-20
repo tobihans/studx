@@ -169,6 +169,9 @@ onMounted(() => {
 
     window.addEventListener("beforeunload", (event) => {
       event.preventDefault();
+    });
+
+    window.addEventListener("unload", () => {
       room.disconnect();
     });
   }
