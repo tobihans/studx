@@ -2,7 +2,7 @@
 A prototype of audio-conferencing software for virtual classes.
 
 This is my end of study project.
-You can find the source code of the associated report [here](https://github.com/tobihans/end-of-study.git).
+You can find the source code of the associated report [here](https://github.com/tobihans/end-of-study-report.git).
 
 > This branch contains the unified version of the project which originally was spread across many repositories.
 > They are now archived (and private). And this repository tracks the development.
