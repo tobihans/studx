@@ -68,8 +68,9 @@ const defaultOptions: Options = {
     popupDetailAttendees({ attendees = [] }) {
       const firstPart = attendees.slice(0, 2).join(", ");
 
-      return `${firstPart}${attendees.length > 2 ? `and ${attendees.length - 2} more` : ""
-        }`;
+      return `${firstPart}${
+        attendees.length > 2 ? `and ${attendees.length - 2} more` : ""
+      }`;
     },
     popupDetailState({ state }) {
       return state || "";
@@ -81,14 +82,15 @@ const defaultOptions: Options = {
       return raw.meetingId
         ? `${body}<br>
             <strong>Meeting ID:</strong>
-            <a href="${router.resolve({
-          name: "meetings",
-          params: {
-            dashboardContextOrgSlug: org.value?.org?.slug,
-            meetingId: raw.meetingId,
-          },
-        }).href
-        }" style="text-decoration: underline">${raw.meetingId}</a>`
+            <a href="${
+              router.resolve({
+                name: "meetings",
+                params: {
+                  dashboardContextOrgSlug: org.value?.org?.slug,
+                  meetingId: raw.meetingId,
+                },
+              }).href
+            }" style="text-decoration: underline">${raw.meetingId}</a>`
         : body;
     },
   },
@@ -175,7 +177,9 @@ const activeViewClasses = (value: View) => [
 </script>
 
 <template>
-  <div class="overflow-y-auto overflow-x-auto h-full pt-3 md:(px-6 py-3) flex flex-col">
+  <div
+    class="overflow-y-auto overflow-x-auto h-full pt-3 md:(px-6 py-3) flex flex-col"
+  >
     <div class="h-12 bg-white text-sm px-2 flex items-center">
       <button @click="view = 'day'" :class="activeViewClasses('day')">
         <PhSquare />
@@ -190,8 +194,11 @@ const activeViewClasses = (value: View) => [
         <span class="<md:hidden">Month view</span>
       </button>
       <div class="ml-auto"></div>
-      <button v-show="String(org?.role) !== 'student'" @click="createEventModal?.open()"
-        class="mr-4 btn p-1 text-xs mx-0.5 rounded">
+      <button
+        v-show="String(org?.role) !== 'student'"
+        @click="createEventModal?.open()"
+        class="mr-4 btn p-1 text-xs mx-0.5 rounded"
+      >
         Create
       </button>
       <button @click="calendar?.prev()" class="btn p-1 text-xs mx-0.5 rounded">
@@ -210,30 +217,57 @@ const activeViewClasses = (value: View) => [
       <template #modal>
         <div
           class="container mx-auto w-full px-6 py-3 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl md:max-w-screen-xl h-10/12 overflow-y-auto"
-          role="dialog" id="modal">
+          role="dialog"
+          id="modal"
+        >
           <header
-            class="flex text-sm justify-between items-center sticky top-0 z-4000 p-2 bg-gray-100 rounded-md dark:bg-gray-700">
+            class="flex text-sm justify-between items-center sticky top-0 z-4000 p-2 bg-gray-100 rounded-md dark:bg-gray-700"
+          >
             <!-- Modal title -->
             <p class="text-md font-semibold text-gray-700 dark:text-gray-300">
               Create a new event
             </p>
-            <button @click="createEventModal?.close()"
+            <button
+              @click="createEventModal?.close()"
               class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
-              aria-label="close">
+              aria-label="close"
+            >
               <PhX class="w-4 h-4" />
             </button>
           </header>
           <!-- Modal body -->
           <div class="mt-4 mb-6">
             <Form @submit="createEvent" :validation-schema="CreateEventSchema">
-              <FormField class="my-4" name="title" type="text" placeholder="New course" label="Title" />
-              <FormField class="my-4" name="description" type="text" placeholder="A meeting schedule for the new course"
-                label="Description" :required="false" />
+              <FormField
+                class="my-4"
+                name="title"
+                type="text"
+                placeholder="New course"
+                label="Title"
+              />
+              <FormField
+                class="my-4"
+                name="description"
+                type="text"
+                placeholder="A meeting schedule for the new course"
+                label="Description"
+                :required="false"
+              />
               <div class="md:(flex gap-2)">
-                <FormField class="my-4 flex-1" name="startsAt" type="datetime-local"
-                  placeholder="A meeting schedule for the new course" label="Starts at" />
-                <FormField class="my-4 flex-1" name="endsAt" type="datetime-local"
-                  placeholder="A meeting schedule for the new course" label="Ends at" />
+                <FormField
+                  class="my-4 flex-1"
+                  name="startsAt"
+                  type="datetime-local"
+                  placeholder="A meeting schedule for the new course"
+                  label="Starts at"
+                />
+                <FormField
+                  class="my-4 flex-1"
+                  name="endsAt"
+                  type="datetime-local"
+                  placeholder="A meeting schedule for the new course"
+                  label="Ends at"
+                />
               </div>
               <label class="block text-sm my-4">
                 <span class="text-gray-700 dark:text-gray-400 block">
@@ -241,25 +275,39 @@ const activeViewClasses = (value: View) => [
                   <span class="mx-0.5 text-red-600">*</span>
                 </span>
                 <Field v-slot="{ field }" name="attendees" type="text">
-                  <textarea v-bind="{ ...field }"
-                    class="form-input block w-full mt-1 text-sm border-purple-600 dark:text-gray-300 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple min-h-10"></textarea>
+                  <textarea
+                    v-bind="{ ...field }"
+                    class="form-input block w-full mt-1 text-sm border-purple-600 dark:text-gray-300 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple min-h-10"
+                  ></textarea>
                 </Field>
                 <!--TODO: COnnect this button to populate participants list with usernames-->
-                <button type="button"
-                  class="btn h-auto bg-transparent text-purple-600 border-purple-600 focus:bg-transparent px-3 py-1.5 my-2 hover:text-white">
+                <button
+                  type="button"
+                  class="btn h-auto bg-transparent text-purple-600 border-purple-600 focus:bg-transparent px-3 py-1.5 my-2 hover:text-white"
+                >
                   Populate from CSV
                 </button>
               </label>
               <label class="block my-4 px-2 flex gap-2">
-                <Field v-slot="{ field }" name="addMeetingLink" type="checkbox" :value="true" :unchecked-value="false">
+                <Field
+                  v-slot="{ field }"
+                  name="addMeetingLink"
+                  type="checkbox"
+                  :value="true"
+                  :unchecked-value="false"
+                >
                   <input
                     class="form-checkbox mr-2 text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                    type="checkbox" v-bind="field" :value="true" />
+                    type="checkbox"
+                    v-bind="field"
+                    :value="true"
+                  />
                 </Field>
                 <span class="text-sm">Add a meeting link</span>
               </label>
               <button
-                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple disabled:opacity-50 disabled:cursor-not-allowed">
+                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Create
               </button>
             </Form>
