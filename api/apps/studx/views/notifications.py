@@ -1,10 +1,11 @@
-from apps.studx.serializers import NotificationSerializer
 from notifications.models import Notification
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.request import Request
 from rest_framework.response import Response
+
+from apps.studx.serializers import NotificationSerializer
 
 
 class NotificationsViewSet(viewsets.ViewSet):

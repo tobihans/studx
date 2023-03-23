@@ -1,13 +1,14 @@
 from functools import reduce
 from uuid import uuid4
 
-from apps.auth.serializers import UserSerializer
-from apps.studx.models import Event, Organization, OrganizationMembership
 from django.contrib.auth import get_user_model
-from helpers import generate_slug
 from notifications.models import Notification
 from notifications.signals import notify
 from rest_framework import serializers
+
+from apps.auth.serializers import UserSerializer
+from apps.studx.models import Event, Organization, OrganizationMembership
+from helpers import generate_slug
 
 
 class OrganizationSerializer(serializers.ModelSerializer):

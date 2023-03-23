@@ -1,8 +1,6 @@
 import uuid
 from pathlib import Path
 
-from apps.studx.models import Event, Organization, OrganizationMembership
-from core import settings
 from django.contrib.auth import get_user_model
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -13,6 +11,9 @@ from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.request import Request
 from rest_framework.response import Response
+
+from apps.studx.models import Event, Organization, OrganizationMembership
+from core import settings
 from tasks.add_members import add_members
 
 from ..serializers import (

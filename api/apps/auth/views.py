@@ -1,7 +1,6 @@
 from operator import itemgetter
 
 import jwt
-from apps.auth.serializers import SignupRequestSerializer, UserSerializer
 from django.conf import settings
 from django.contrib.auth import get_user_model, login
 from django.http import Http404, QueryDict
@@ -12,6 +11,8 @@ from knox.views import LoginView as KnoxLoginView
 from rest_framework import permissions, status
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.views import APIView, Request, Response
+
+from apps.auth.serializers import SignupRequestSerializer, UserSerializer
 from tasks.email import email_task
 
 User = get_user_model()
@@ -63,8 +64,10 @@ class SigninView(KnoxLoginView):
     def post(self, request):
         serializer = AuthTokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        print("here")
         user = serializer.validated_data["user"]
         login(request, user)
+        print("there")
         return super(SigninView, self).post(request, format=format)
 
 

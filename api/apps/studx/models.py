@@ -1,5 +1,6 @@
-from apps.auth.models import User
 from django.db import models
+
+from apps.auth.models import User
 from helpers import generate_slug
 
 

@@ -1,10 +1,11 @@
 import polars as pl
+from celery.utils.log import logging
+from django.contrib.auth.hashers import make_password
+
 from apps.auth.models import User
 from apps.studx.models import Organization, OrganizationMembership
-from celery.utils.log import logging
 from core import settings
 from core.celery import app
-from django.contrib.auth.hashers import make_password
 
 
 @app.task(

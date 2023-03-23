@@ -1,12 +1,14 @@
-from apps.studx.models import Event, Organization, OrganizationMembership
-from apps.studx.serializers import CreateEventSerializer, EventSerializer
 from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from notifications.signals import notify
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
+
+from apps.studx.models import Event, Organization, OrganizationMembership
+from apps.studx.serializers import CreateEventSerializer, EventSerializer
 
 
 class EventsViewSet(viewsets.ViewSet):
@@ -82,5 +84,15 @@ class EventsViewSet(viewsets.ViewSet):
         event = get_object_or_404(
             Event, meeting_id__iexact=meeting_id, org__slug=org_slug
         )
+
+        attendees = event.attendees.all()
+        print(attendees, event.created_by)
+
+        if (
+            event.created_by != request.user
+            and len(attendees) > 0
+            and request.user not in attendees
+        ):
+            raise Http404()
 
         return Response(EventSerializer(event).data, status=status.HTTP_200_OK)
