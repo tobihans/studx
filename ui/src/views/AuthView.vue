@@ -28,6 +28,7 @@ const submit = async (request: unknown) => {
     isSubmitDisabled.value = false;
   } catch {
     notifyError();
+    isSubmitDisabled.value = false;
   }
 };
 
