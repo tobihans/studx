@@ -116,8 +116,8 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class CreateEventSerializer(serializers.ModelSerializer):
-    attendees = serializers.CharField()
-    add_meeting_link = serializers.BooleanField()
+    attendees = serializers.CharField(required=False)
+    add_meeting_link = serializers.BooleanField(default=False, required=False)
 
     class Meta:
         model = Event
@@ -134,7 +134,7 @@ class CreateEventSerializer(serializers.ModelSerializer):
         if validated_data["add_meeting_link"]:
             validated_data["meeting_id"] = f"{uuid4()}"
 
-        del validated_data["add_meeting_link"]
+        validated_data.pop("add_meeting_link", None)
 
         attendees = filter(
             None,
@@ -142,7 +142,7 @@ class CreateEventSerializer(serializers.ModelSerializer):
                 lambda acc, val: [*acc, *val],
                 [
                     string.split(",")
-                    for string in validated_data["attendees"].split("\n")
+                    for string in validated_data.get("attendees", "").split("\n")
                 ],
                 [],
             ),
@@ -154,7 +154,7 @@ class CreateEventSerializer(serializers.ModelSerializer):
             ).filter(org=validated_data["org"], user__username__in=attendees)
         ]
 
-        del validated_data["attendees"]
+        validated_data.pop("attendees", None)
 
         event = Event.objects.create(**validated_data)
         event.attendees.set(attendees)
