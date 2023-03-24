@@ -24,10 +24,6 @@ watch(loadUnreadOnly, async (value) => {
   else await loadAll();
 });
 
-watch(notifications, (n) => {
-  console.log({ n });
-});
-
 defineExpose({ modal });
 </script>
 

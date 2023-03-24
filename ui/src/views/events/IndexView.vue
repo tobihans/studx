@@ -21,6 +21,7 @@ import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
 import { useRouter } from "vue-router";
+import { useFileDialog } from "@vueuse/core";
 
 type View = "week" | "day" | "month";
 
@@ -95,12 +96,16 @@ const defaultOptions: Options = {
     },
   },
 };
+const form = ref();
+const attendeesField = ref<any>();
+const attendees = ref<any>();
 
-const createEvent = async (request: unknown) => {
+const createEvent = async (request: object) => {
   try {
     const event = await addEvent(
       org.value?.org?.slug,
-      request as CreateEventRequest
+      // FIXME: This is a workaround to pass attendees populated programmatically.
+      { ...request, attendees: attendees.value } as CreateEventRequest
     );
     calendar?.createEvents([
       {
@@ -120,6 +125,24 @@ const createEvent = async (request: unknown) => {
     notifyError();
   }
 };
+
+const { files, open: openCSVPicker } = useFileDialog({
+  accept: "text/csv",
+});
+
+watch(files, (files) => {
+  if (files)
+    files[0]
+      .text()
+      .then((text) => {
+        attendeesField.value.value = attendees.value =
+          text || attendeesField.value.value;
+        form.value?.validate();
+      })
+      .catch(() => {
+        notifyError();
+      });
+});
 
 const onBeforeUpdateEvent = ({ event, changes }: any) => {
   const { id, calendarId } = event;
@@ -237,7 +260,11 @@ const activeViewClasses = (value: View) => [
           </header>
           <!-- Modal body -->
           <div class="mt-4 mb-6">
-            <Form @submit="createEvent" :validation-schema="CreateEventSchema">
+            <Form
+              @submit="createEvent"
+              :validation-schema="CreateEventSchema"
+              ref="form"
+            >
               <FormField
                 class="my-4"
                 name="title"
@@ -276,12 +303,15 @@ const activeViewClasses = (value: View) => [
                 </span>
                 <Field v-slot="{ field }" name="attendees" type="text">
                   <textarea
+                    id="attendees-list"
                     v-bind="{ ...field }"
+                    :set="(attendeesField = field)"
+                    v-model="attendeesField"
                     class="form-input block w-full mt-1 text-sm border-purple-600 dark:text-gray-300 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple min-h-10"
                   ></textarea>
                 </Field>
-                <!--TODO: COnnect this button to populate participants list with usernames-->
                 <button
+                  @click="() => openCSVPicker()"
                   type="button"
                   class="btn h-auto bg-transparent text-purple-600 border-purple-600 focus:bg-transparent px-3 py-1.5 my-2 hover:text-white"
                 >
