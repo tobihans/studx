@@ -51,6 +51,10 @@ export const beforeHomeEnter = async (to: RouteLocationNormalized) => {
 };
 
 export const checkMeetingID = async (to: RouteLocationNormalized) => {
+  if (!to.params.meetingId) {
+    return;
+  }
+
   const meetingId = String(to.params.meetingId);
 
   if (!meetingId) return;
@@ -58,9 +62,7 @@ export const checkMeetingID = async (to: RouteLocationNormalized) => {
   const orgStore = useOrgsStore();
 
   try {
-    const event = await getEvent(orgStore.org.org.slug, meetingId);
-
-    to.meta.event = event;
+    to.meta.event = await getEvent(orgStore.org.org.slug, meetingId);
   } catch {
     return {
       name: "404",
