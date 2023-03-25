@@ -1,20 +1,57 @@
 #!/usr/bin/env bash
 
-INPUT_FILE=$1
-
+################################################################################
+# Cleanup the virtual devices created
+# Globals:
+#     None
+# Arguments:
+#     $1: None
+# Outputs:
+#     None
+# Returns:
+#   exit code of pactl
+################################################################################
 function cleanup() {
-  pactl unload-module module-null-sink
   pactl unload-module module-remap-source
+  pactl unload-module module-null-sink
 }
 
-
+################################################################################
+# Creates a virtual microphone to play audio files through.
 # Resource: https://docs.audiorelay.net/instructions/linux/use-your-phone-as-a-mic-for-a-linux-pc
+# Globals:
+#     None
+# Arguments:
+#     $1: The file to plat
+# Outputs:
+#     None
+# Returns:
+#     0 or non-0 exit code
+################################################################################
+function main() {
+    INPUT_FILE=$1
 
-# Creates a device where AudioRelay can stream audio into
-pactl load-module module-null-sink sink_name=audiorelay-virtual-mic-sink sink_properties=device.description=Virtual-Mic-Sink
+    pactl load-module module-null-sink \
+        sink_name=studx-virtual-mic-sink \
+        sink_properties=device.description=StudX-Virtual-Microphone-Sink
+    pactl load-module module-remap-source \
+        master=studx-virtual-mic-sink.monitor \
+        source_name=studx-virtual-mic-sink \
+        source_properties=device.description=StudX-Virtual-Microphone
 
-# Creates a device usable by communications apps (e.g: skype)
-pactl load-module module-remap-source master=audiorelay-virtual-mic-sink.monitor source_name=audiorelay-virtual-mic-sink source_properties=device.description=Virtual-Mic
+    if [[ ! -d .venv ]]
+    then
+        python -m venv .venv
+        source .venv/bin/activate
+        pip install -U pip setuptools wheel
+        pip install pygame
+    else
+        source .venv/bin/activate
+    fi
 
-trap cleanup EXIT
+    python play.py "$INPUT_FILE"
 
+    trap cleanup EXIT
+}
+
+main "$@"

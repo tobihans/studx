@@ -7,7 +7,7 @@ import time
 from pygame import mixer
 
 if sys.platform.startswith('linux'):
-    mixer.init(devicename='Virtual-Mic-Sink')
+    mixer.init(devicename='StudX-Virtual-Microphone-Sink')
 else:
     mixer.init(devicename='CABLE Input (VB-Audio Virtual Cable)')
 
