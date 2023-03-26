@@ -116,10 +116,10 @@ const onArrival = async ({ detail: { name, justJoined } }: any) => {
   }
 };
 
-const onDeparture = async ({ detail: { sessionId } }: any) => {
+const onDeparture = async ({ detail: { name, sessionId } }: any) => {
   notify({
     type: "info",
-    text: `${getParticipantNameBySessionID(sessionId)} left the meeting`,
+    text: `${name ?? sessionId} left the meeting`,
   });
 };
 

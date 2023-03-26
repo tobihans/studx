@@ -263,11 +263,16 @@ export class Room extends EventBus {
       participantSession.removeTrack(track);
 
       if (!participantSession.hasTracks()) {
+        const participant = this.#store.participants
+          .filter((participant) => participant.sessionId === sessionId)
+          .at(0);
+
         this.#participants.delete(sessionId);
         this.#store.participants = this.#store.participants.filter(
           (participant) => participant.sessionId !== sessionId
         );
-        this.emit("sessionClosed", { sessionId });
+
+        this.emit("sessionClosed", { sessionId, ...participant });
       }
     }
   }
