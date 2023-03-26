@@ -214,14 +214,6 @@ impl Actor for Session {
             router_rtp_capabilities: self.room.router().rtp_capabilities().clone(),
         };
         addr.do_send(server_init_msg);
-
-        // Notify about existing producers
-        for (session_id, producer_id) in self.room.all_producers() {
-            addr.do_send(ServerMessage::ProducerAdded {
-                session_id,
-                producer_id,
-            })
-        }
     }
 
     fn stopping(&mut self, ctx: &mut Self::Context) -> Running {
@@ -318,7 +310,18 @@ impl Handler<ClientMessage> for Session {
     fn handle(&mut self, msg: ClientMessage, ctx: &mut Self::Context) -> Self::Result {
         match msg {
             ClientMessage::Init { rtp_capabilities } => {
+                let addr = ctx.address();
                 self.rtp_capabilities.replace(rtp_capabilities);
+
+                // Notify about existing producers
+                for (session_id, producer_id) in self.room.all_producers() {
+                    if session_id != self.id {
+                        addr.do_send(ServerMessage::ProducerAdded {
+                            session_id,
+                            producer_id,
+                        })
+                    }
+                }
             }
             ClientMessage::ConnectProducerTransport { dtls_parameters } => {
                 let addr = ctx.address();

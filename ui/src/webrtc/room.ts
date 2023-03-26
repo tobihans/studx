@@ -238,7 +238,11 @@ export class Room extends EventBus {
       const output = this.#audioContext.createMediaStreamSource(
         session.mediaStream
       );
+
       output.connect(this.#audioContext.destination);
+
+      // INFO: Chrome bug workaround: https://stackoverflow.com/a/54781147/15021293
+      new Audio().srcObject = session.mediaStream;
     } else {
       // Activate screen sharing if track is a video track
       this.#store.screenStream = session.mediaStream;
