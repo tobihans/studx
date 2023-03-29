@@ -299,7 +299,6 @@ const activeViewClasses = (value: View) => [
               <label class="block text-sm my-4">
                 <span class="text-gray-700 dark:text-gray-400 block">
                   <span>Attendees</span>
-                  <span class="mx-0.5 text-red-600">*</span>
                 </span>
                 <Field v-slot="{ field }" name="attendees" type="text">
                   <textarea
