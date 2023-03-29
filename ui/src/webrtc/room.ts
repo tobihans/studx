@@ -24,8 +24,6 @@ import { useRoomStore } from "@/stores/room";
 import type { Producer } from "mediasoup-client/lib/Producer";
 import { notifyError } from "@/utils";
 
-// import microphoneLevelWorkerURL from "../workers/microphoneLevelMeter?worker&url";
-
 export class Session {
   /**
    * The corresponding media stream
@@ -186,7 +184,7 @@ export class Room extends EventBus {
     if (producer) {
       this.#send({ type: "RemoveProducer", id: producer.id as ProducerId });
       producer.close();
-      this.#store.screenStream?.getTracks().map((track) => track.stop());
+      this.#store.screenStream?.getTracks().map((track) => track.kind == "video" && track.stop());
 
       this.#store.screenOn = false;
       this.#store.screenStream = undefined;
