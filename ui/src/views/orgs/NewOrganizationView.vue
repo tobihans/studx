@@ -14,10 +14,13 @@ const router = useRouter();
 const onSubmit = async (request: unknown) => {
   try {
     const org = await createOrganization(request as CreateOrganizationRequest);
-    router.push({
-      name: "home",
-      params: { dashboardContextOrgSlug: org.slug },
-    });
+
+    location.assign(
+      router.resolve({
+        name: "home",
+        params: { dashboardContextOrgSlug: org.slug },
+      }).href
+    );
   } catch (error) {
     console.log(error);
     notify({
@@ -40,18 +43,8 @@ const onSubmit = async (request: unknown) => {
           </p>
         </header>
         <div>
-          <FormField
-            class="my-4"
-            name="name"
-            label="Name your organization"
-            placeholder="beautiful-dolphin"
-          />
-          <FormField
-            class="my-4"
-            name="about"
-            label="Description"
-            :required="false"
-          />
+          <FormField class="my-4" name="name" label="Name your organization" placeholder="beautiful-dolphin" />
+          <FormField class="my-4" name="about" label="Description" :required="false" />
           <span>
             <button @submit.prevent class="btn">Create</button>
           </span>
