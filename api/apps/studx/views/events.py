@@ -22,6 +22,7 @@ class EventsViewSet(viewsets.ViewSet):
                     & (
                         Q(created_by=request.user)
                         | Q(attendees=request.user)
+                        | Q(attendees=None)
                         # | Q(
                         #     org__members=request.user,
                         #     org__organizationmembership__role=OrganizationMembership.Role.ADMIN,
