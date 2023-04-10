@@ -39,7 +39,7 @@ def add_members(organization_slug: str, filepath: str) -> tuple[int, int]:
             username=username,
             defaults={
                 "username": username,
-                "password": make_password(f"{username}-t3m9p"),
+                "password": make_password(f"{username}"),
             },
         )
 
