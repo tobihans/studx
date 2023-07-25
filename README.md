@@ -51,13 +51,11 @@ poetry run -- ./manage.py loaddata fixtures/base.json
 ```text
 .
 ├── api # API
-├── automated_demo # uses Playwright to automate UI exploration
 ├── Caddyfile.template # template from which Caddyfile is created after being populated
-├── container # docker volume(s) foldef
 ├── docker-compose.yml
-├── env.template # env file
+├── env.template
 ├── kitty.conf # kitty session file
-├── Makefile # automate the boring stuff
+├── Makefile
 ├── README.md
 ├── rooms # rust project for rooms
 ├── scripts # bash utilities
@@ -65,3 +63,8 @@ poetry run -- ./manage.py loaddata fixtures/base.json
 ├── whiteboard # app whiteboard
 └── writepad # app writepad
 ```
+
+### Issues
+
+- **Caddy** proxy: `Permission denied`
+Use `sudo setcap CAP_NET_BIND_SERVICE=+eip $(which caddy)` to enable access to low-level ports.

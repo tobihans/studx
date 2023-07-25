@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: Resolve the SSL issue that prevents the proxy from working
+
 set -euo pipefail
 
 CADDYFILE=${1:-$PWD/Caddyfile}
