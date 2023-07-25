@@ -34,6 +34,11 @@ down:
 caddyfile:
 	@bash -c "source .env && envsubst < Caddyfile.template > Caddyfile"
 
+.PHONY: proxy 
+# help: proxy - Runs the proxy server with Caddy
+proxy:
+	@./scripts/proxy.sh
+
 .PHONY: dev
 # help: dev - Starts a kitty session with all modules running
 dev:
