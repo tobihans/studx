@@ -43,6 +43,7 @@ There is a basic fixture available to populate the API DB.
 To load it, run:
 
 ```bash
+source .env
 cd api/
 poetry run -- ./manage.py loaddata fixtures/base.json
 ```
