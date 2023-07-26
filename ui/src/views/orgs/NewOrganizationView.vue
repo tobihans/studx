@@ -43,8 +43,18 @@ const onSubmit = async (request: unknown) => {
           </p>
         </header>
         <div>
-          <FormField class="my-4" name="name" label="Name your organization" placeholder="beautiful-dolphin" />
-          <FormField class="my-4" name="about" label="Description" :required="false" />
+          <FormField
+            class="my-4"
+            name="name"
+            label="Name your organization"
+            placeholder="beautiful-dolphin"
+          />
+          <FormField
+            class="my-4"
+            name="about"
+            label="Description"
+            :required="false"
+          />
           <span>
             <button @submit.prevent class="btn">Create</button>
           </span>

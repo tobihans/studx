@@ -184,7 +184,9 @@ export class Room extends EventBus {
     if (producer) {
       this.#send({ type: "RemoveProducer", id: producer.id as ProducerId });
       producer.close();
-      this.#store.screenStream?.getTracks().map((track) => track.kind == "video" && track.stop());
+      this.#store.screenStream
+        ?.getTracks()
+        .map((track) => track.kind == "video" && track.stop());
 
       this.#store.screenOn = false;
       this.#store.screenStream = undefined;

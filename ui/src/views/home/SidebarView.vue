@@ -267,7 +267,9 @@ onMounted(() => {
                     >
                       <img
                         class="object-cover w-4 h-4 rounded mr-3"
-                        :src="organization.picture || OrganizationPlaceholderURL"
+                        :src="
+                          organization.picture || OrganizationPlaceholderURL
+                        "
                         alt=""
                         aria-hidden="true"
                       />
