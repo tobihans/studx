@@ -31,6 +31,8 @@ function cleanup() {
 function main() {
     INPUT_FILE=$1
 
+    trap cleanup EXIT
+
     pactl load-module module-null-sink \
         sink_name=studx-virtual-mic-sink \
         sink_properties=device.description=StudX-Virtual-Microphone-Sink
@@ -50,8 +52,6 @@ function main() {
     fi
 
     python play.py "$INPUT_FILE"
-
-    trap cleanup EXIT
 }
 
 main "$@"
