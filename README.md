@@ -68,4 +68,5 @@ poetry run -- ./manage.py loaddata fixtures/base.json
 ### Issues
 
 - **Caddy** proxy: `Permission denied`
+  
 Use `sudo setcap CAP_NET_BIND_SERVICE=+eip $(which caddy)` to enable access to low-level ports.
