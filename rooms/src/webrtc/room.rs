@@ -20,7 +20,7 @@ pub struct RoomId(pub Uuid);
 
 impl Display for RoomId {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.0.to_string())
+        write!(f, "{}", self.0)
     }
 }
 
@@ -38,7 +38,7 @@ impl<'de> Deserialize<'de> for RoomId {
     where
         D: Deserializer<'de>,
     {
-        Uuid::deserialize(deserializer).map(|uuid| RoomId(uuid))
+        Uuid::deserialize(deserializer).map(RoomId)
     }
 }
 

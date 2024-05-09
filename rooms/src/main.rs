@@ -49,7 +49,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(worker_manager.clone()))
             .app_data(web::Data::new(registry.clone()))
             .app_data(web::Data::new(redis.clone()))
-            .app_data(web::Data::new(transport_ips.clone()))
+            .app_data(web::Data::new(transport_ips))
             .wrap(Logger::default())
             .service(web::scope("/ws").service(websocket::room))
     })

@@ -37,7 +37,7 @@ impl Server {
             Ok(identifiers) => identifiers
                 .iter()
                 .filter_map(|id| Uuid::parse_str(id).ok())
-                .map(|uuid| SessionId(uuid))
+                .map(SessionId)
                 .collect(),
             Err(err) => {
                 println!("{:?}", err);
@@ -57,10 +57,9 @@ impl Server {
         let mut members = vec![];
 
         self.room_members(room_id).iter().for_each(|id| {
-            if self.sessions.get(id).is_some() {
-                match conn.get(format!("room:{}:members:{}:name", room_id, id)) {
-                    Ok(name) => members.push((id.to_string(), name)),
-                    _ => (),
+            if let Some(_get) = self.sessions.get(id) {
+                if let Ok(name) = conn.get(format!("room:{}:members:{}:name", room_id, id)) {
+                    members.push((id.to_string(), name))
                 }
             }
         });

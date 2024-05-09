@@ -40,9 +40,9 @@ proxy:
 	@./scripts/proxy.sh
 
 .PHONY: dev
-# help: dev - Starts a kitty session with all modules running
+# help: dev   - Starts Supervisor
 dev:
-	@bash -c "source .env && kitty --session \$$PWD/kitty.conf"
+	@bash -c "source .env && supervisord -c supervisord.ini"
 
 .PHONY: setup 
 # help: setup - Setup all for development.

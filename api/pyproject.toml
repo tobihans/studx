@@ -21,6 +21,7 @@ django-notifications-hq = "^1.7.0"
 redis = "^4.4.2"
 drf-nested-routers = "^0.93.4"
 polars = "^0.16.12"
+supervisor = "^4.2.5"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -30,6 +31,9 @@ djangorestframework-stubs = "^1.8.0"
 
 [tool.django-stubs]
 django_settings_module = "core.settings"
+
+[tool.pyright]
+reportIncompatibleMethodOverride = false
 
 [build-system]
 requires = ["poetry-core"]

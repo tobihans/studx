@@ -2,3 +2,5 @@
 # Auto generated
 Caddyfile
 container/
+logs/
+*.pid

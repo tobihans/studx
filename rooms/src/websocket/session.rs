@@ -42,7 +42,7 @@ impl SessionId {
 
 impl Display for SessionId {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.0.to_string())
+        write!(f, "{}", self.0)
     }
 }
 
@@ -60,7 +60,7 @@ impl<'de> Deserialize<'de> for SessionId {
     where
         D: Deserializer<'de>,
     {
-        Uuid::deserialize(deserializer).map(|uuid| SessionId(uuid))
+        Uuid::deserialize(deserializer).map(SessionId)
     }
 }
 
@@ -297,9 +297,8 @@ impl Handler<ServerMessage> for Session {
     type Result = ();
 
     fn handle(&mut self, msg: ServerMessage, ctx: &mut Self::Context) -> Self::Result {
-        match serde_json::to_string(&msg) {
-            Ok(json) => ctx.text(json),
-            Err(_) => (),
+        if let Ok(json) = serde_json::to_string(&msg) {
+            ctx.text(json)
         };
     }
 }

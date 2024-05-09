@@ -2,8 +2,6 @@ use actix::prelude::*;
 use mediasoup::prelude::*;
 use serde::{Deserialize, Serialize};
 
-pub use internals::InternalMessage;
-
 use crate::webrtc::room::RoomId;
 use crate::websocket::SessionId;
 

@@ -13,7 +13,6 @@ import PhGear from "~icons/ph/gear";
 import PhCalendar from "~icons/ph/calendar";
 import PhCircleWavyQuestion from "~icons/ph/circle-wavy-question";
 import PhPhoneCall from "~icons/ph/phone-call";
-import UserPlaceholderURL from "@/assets/img/user.svg";
 
 defineEmits(["start-tour"]);
 
