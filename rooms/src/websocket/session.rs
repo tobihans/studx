@@ -112,9 +112,18 @@ impl Session {
         transport_ips: (net::IpAddr, Option<net::IpAddr>),
     ) -> Result<Self, String> {
         let (producer, consumer) = {
-            let (ip, announced_ip) = transport_ips;
+            let (ip, announced_address) = transport_ips;
             let transport_options =
-                WebRtcTransportOptions::new(TransportListenIps::new(ListenIp { ip, announced_ip }));
+                WebRtcTransportOptions::new(WebRtcTransportListenInfos::new(ListenInfo {
+                    ip,
+                    announced_address: announced_address.map(|addr| addr.to_string()),
+                    protocol: Protocol::Udp,
+                    port: None,
+                    port_range: None,
+                    flags: None,
+                    send_buffer_size: None,
+                    recv_buffer_size: None,
+                }));
 
             let producer = room
                 .router()

@@ -22,6 +22,7 @@ pub struct QueryParams {
 }
 
 #[get("/rooms/{room_id}")]
+#[allow(clippy::too_many_arguments)]
 pub async fn room(
     room_id: web::Path<String>,
     info: web::Query<QueryParams>,

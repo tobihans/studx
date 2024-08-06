@@ -155,10 +155,11 @@ impl Room {
     /// Removes a user's session from the room
     /// returning its producers.
     pub fn remove_session(&self, session_id: SessionId) -> Vec<Producer> {
-        match self.inner.clients.lock().remove(&session_id) {
-            Some(producers) => producers,
-            None => vec![],
-        }
+        self.inner
+            .clients
+            .lock()
+            .remove(&session_id)
+            .unwrap_or_default()
     }
 
     pub fn downgrade(&self) -> WeakRoom {
