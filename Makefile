@@ -44,6 +44,10 @@ proxy:
 dev:
 	@bash -c "source .env && supervisord -c supervisord.ini"
 
+# help: dev   - Starts Supervisor
+dev-kitty:
+	@bash -c "source .env && kitty --session \$$PWD/kitty.conf"
+
 .PHONY: setup 
 # help: setup - Setup all for development.
 setup: envfile caddyfile install-deps up
