@@ -1,25 +1,10 @@
 <script lang="ts" setup>
-defineProps({
-  icon: {
-    type: Object,
-    required: true,
-  },
-
-  title: {
-    type: String,
-    required: true,
-  },
-
-  action: {
-    type: Function,
-    required: true,
-  },
-
-  isActive: {
-    type: Function,
-    default: null,
-  },
-});
+defineProps<{
+  icon?: object;
+  title?: string;
+  action?: () => void;
+  isActive?: () => boolean;
+}>();
 </script>
 
 <template>

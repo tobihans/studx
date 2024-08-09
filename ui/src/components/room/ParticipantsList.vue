@@ -23,9 +23,10 @@ const count = computed(() => list.value.length);
   <div class="text-sm p-1">
     <RoomParticipant
       v-for="participant in list"
-      :key="participant.sessionId"
+      :key="participant.sessionId ?? ''"
       :name="participant.name"
     />
+    <!-- HACK: ?? ''  is a quickfix to avoid ts compiler warnings during builds.-->
   </div>
 </template>
 

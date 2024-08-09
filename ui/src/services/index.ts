@@ -1,12 +1,11 @@
 import { useUserStore } from "@/stores/user";
 import { ofetch } from "ofetch";
 
-import.meta.env.STUDX_UI_API_ENDPOINT =
-  import.meta.env.STUDX_UI_API_ENDPOINT ?? "/api";
+const STUDX_UI_API_ENDPOINT = import.meta.env.STUDX_UI_API_ENDPOINT ?? "/api";
 
-const baseURL = import.meta.env.STUDX_UI_API_ENDPOINT.endsWith("/")
-  ? import.meta.env.STUDX_UI_API_ENDPOINT
-  : import.meta.env.STUDX_UI_API_ENDPOINT + "/";
+const baseURL = STUDX_UI_API_ENDPOINT.endsWith("/")
+  ? STUDX_UI_API_ENDPOINT
+  : STUDX_UI_API_ENDPOINT + "/";
 
 export const apifetch = ofetch.create({
   baseURL,

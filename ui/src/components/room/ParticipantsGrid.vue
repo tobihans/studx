@@ -24,9 +24,10 @@ const count = computed(() => participants.value.length);
   >
     <div
       v-for="participant in list"
-      :key="participant.sessionId"
+      :key="participant.sessionId ?? ''"
       class="mx-3 flex flex-col items-center"
     >
+      <!-- HACK: ?? ''  is a quickfix to avoid ts compiler warnings during builds.-->
       <PhUserDuotone
         class="text-gray-700 dark:text-gray-200"
         :class="{

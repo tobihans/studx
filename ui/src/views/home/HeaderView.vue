@@ -184,7 +184,7 @@ const signOut = () => {
               <!-- Notification badge -->
               <span
                 aria-hidden="true"
-                v-show="unread?.count > 0"
+                v-show="(unread?.count ?? 0) > 0"
                 class="absolute top-0 right-0 inline-block w-2.5 h-2.5 transform translate-x-0.25 -translate-y-0.5 bg-purple-600 border-2 border-white rounded-full dark:border-gray-800"
               ></span>
             </button>
