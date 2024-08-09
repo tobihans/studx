@@ -4,3 +4,5 @@ Caddyfile
 container/
 logs/
 *.pid
+node_modules
+writepad/writepad-server.js

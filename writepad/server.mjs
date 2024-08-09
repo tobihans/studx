@@ -1,3 +1,5 @@
+'use strict';
+
 import { Server } from '@hocuspocus/server'
 
 const server = Server.configure({
