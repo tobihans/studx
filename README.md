@@ -70,3 +70,15 @@ poetry run -- ./manage.py loaddata fixtures/base.json
 - **Caddy** proxy: `Permission denied`
   
 Use `sudo setcap CAP_NET_BIND_SERVICE=+eip $(which caddy)` to enable access to low-level ports.
+
+## Deployment
+The following ports are required when deploying:
+
+- `9000` : Caddy
+- `6000` : API
+- `5000` : WebRTC signaling and SFU server
+- `8080`, `8081`: Whiteboard sync server & UI
+- `9090`, `9091` : Writepad sync server & UI
+- `3000` : for the main app (on dev), built files will be served by Caddy on prod
+
+Additional ports are required for `Postgres` and `Redis`.
