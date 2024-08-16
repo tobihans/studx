@@ -21,8 +21,8 @@ django-notifications-hq = "^1.7.0"
 redis = "^4.4.2"
 drf-nested-routers = "^0.93.4"
 polars = "^0.16.12"
-supervisor = "^4.2.5"
 celery = {extras = ["redis"], version = "^5.4.0"}
+gunicorn = "^23.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
