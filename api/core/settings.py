@@ -8,7 +8,7 @@ SECRET_KEY = os.getenv(
     "django-insecure-(-%5bmj^4pf9_w&vw^-vol@#0sr6ncb--qg8)0(=*fg87)t=go",
 )
 
-DEBUG = os.getenv("DEBUG", True)
+DEBUG = os.getenv("DEBUG", False)
 
 ALLOWED_HOSTS = list(filter(None, os.getenv("STUDX_ALLOWED_HOSTS", "").split(",")))
 

@@ -10,4 +10,4 @@ WORKDIR /opt/app
 
 COPY . ./
 
-ENTRYPOINT ["sh", "/entrypoint.sh"]
+ENTRYPOINT ["sh", "entrypoint.sh"]
