@@ -1,18 +1,19 @@
-FROM node:16 as base
+FROM node:16 AS base
 
 # Create app directory
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
 # Install app dependencies
-COPY ./package.json pnpm-lock.yaml ./
-RUN npm i -g pnpm && pnpm i
+COPY ./package*.json ./
+RUN npm install
 
 # Bundle frontend
-COPY src ./src
-COPY assets ./assets
-COPY config ./config
-RUN pnpm build
+COPY . ./
+# COPY src ./src
+# COPY assets ./assets
+# COPY config ./config
+RUN npm run build
 
 #####################
 # Final image
@@ -25,12 +26,12 @@ ENV NODE_ENV=prod
 RUN mkdir -p /opt/app
 WORKDIR /opt/app
 
-COPY ./package.json ./pnpm-lock.yaml config.default.yml ./
+COPY ./package*.json config.default.yml ./
 
-RUN npm i -g pnpm && pnpm i --prod
+RUN npm install
 
 COPY scripts ./scripts
 COPY --from=base /opt/app/dist ./dist
 
 EXPOSE 8080
-ENTRYPOINT ["pnpm", "start"]
+ENTRYPOINT ["npm", "run", "start"]

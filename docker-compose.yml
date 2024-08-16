@@ -28,3 +28,7 @@ services:
     build: ./writepad/
     ports:
       - "9090:9090"
+  whiteboard:
+    image: rofl256/whiteboard:latest
+    ports:
+      - "8080:8080"
