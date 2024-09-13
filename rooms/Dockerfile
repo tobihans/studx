@@ -1,17 +1,20 @@
 FROM rust:1.80.0-slim-bullseye AS build
 
-ARG APP_NAME=rooms
+RUN apt-get update && apt-get install -y \
+    libssl-dev openssl pkg-config build-essential \
+    python3 python3-pip nodejs
+RUN rustup component add rustfmt
 
 WORKDIR /build
 
 COPY Cargo.lock Cargo.toml ./
 RUN mkdir src \
-    && echo "// Dummy File" > src/lib.rs \
-    && cargo build --release
+    && echo "fn main() {}" > src/main.rs \
+    &&  cargo build --release && rm -rf src target/release
 
 COPY src src
 RUN cargo build --locked --release
-RUN cp ./target/release/$APP_NAME /bin/rooms
+RUN cp ./target/release/studx /bin/rooms
 
 FROM debian:bullseye-slim AS final
 
@@ -26,5 +29,4 @@ RUN adduser \
 USER appuser
 
 COPY --from=build /bin/rooms /bin/
-ENV ROCKET_ADDRESS=0.0.0.0
 CMD ["/bin/rooms"]
