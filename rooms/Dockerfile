@@ -10,7 +10,7 @@ WORKDIR /build
 COPY Cargo.lock Cargo.toml ./
 RUN mkdir src \
     && echo "fn main() {}" > src/main.rs \
-    &&  cargo build --release && rm -rf src target/release
+    &&  cargo build --release && cargo clean -r -p studx
 
 COPY src src
 RUN cargo build --locked --release
