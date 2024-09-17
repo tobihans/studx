@@ -7,6 +7,8 @@ COPY package.json .
 RUN npm install -g pnpm
 RUN pnpm install
 
+ARG STUDX_UI_API_ENDPOINT=/api
+
 COPY . .
 
 RUN pnpm build

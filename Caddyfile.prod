@@ -9,6 +9,10 @@
 :80 {
 	encode gzip
 
+	handle /writepad* {
+		reverse_proxy http://writepad:9090
+	}
+
 	handle /ws/* {
 		reverse_proxy http://rooms:5000
 	}
@@ -23,8 +27,8 @@
 	}
 
 	handle /* {
-		# reverse_proxy http://localhost:3000
 		root * /app/dist
+		try_files {path} /index.html
 		file_server
 	}
 }

@@ -44,8 +44,10 @@ services:
       - .env
     environment:
       - PORT=6000
+      - STUDX_ALLOWED_HOSTS=*
       - STUDX_REDIS_URL=redis://redis:6379
       - STUDX_DB_HOST=database
+      - STUDX_DB_PORT=5432
   # Proxy
   caddy:
     build: ./ui

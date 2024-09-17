@@ -193,3 +193,65 @@ else:
     EMAIL_HOST_USER = os.getenv("STUDX_EMAIL_HOST_USER")
 
     EMAIL_HOST_PASSWORD = os.getenv("STUDX_EMAIL_HOST_PASSWORD")
+
+# Logging
+LOGS_DIR = Path(BASE_DIR) / "logs"
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[%(asctime)s] %(levelname)s [%(pathname)s: %(name)s.%(funcName)s:%(lineno)s]:%(message)s",
+            "datefmt": "%d/%b/%Y %H:%M:%S",
+        },
+        "simple": {"format": "%(levelname)s %(message)s"},
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+        },
+        "django_log_file": {
+            "level": "DEBUG",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOGS_DIR / "django.log",
+            "maxBytes": 1024 * 1024 * 100,  # 100 MB
+            "backupCount": 10,
+            "formatter": "verbose",
+        },
+        "application_log_file": {
+            "level": "DEBUG",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOGS_DIR / "application.log",
+            "maxBytes": 1024 * 1024 * 100,  # 100 MB
+            "backupCount": 10,
+            "formatter": "verbose",
+        },
+        "500_errors_log_file": {
+            "level": "DEBUG",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOGS_DIR / "500_errors_log_file.log",
+            "maxBytes": 1024 * 1024 * 100,  # 100 MB
+            "backupCount": 10,
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "application": {
+            "level": "DEBUG",
+            "handlers": ["application_log_file"],
+        },
+        "django": {
+            "level": "INFO",
+            "handlers": ["console", "django_log_file"],
+            "propagate": True,
+        },
+        "django.request": {
+            "handlers": ["500_errors_log_file"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+    },
+}
