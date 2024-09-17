@@ -1,0 +1,31 @@
+:8081 {
+	reverse_proxy http://whiteboard:8080
+}
+
+:9091 {
+	reverse_proxy http://writepad:9090
+}
+
+:80 {
+	encode gzip
+
+	handle /ws/* {
+		reverse_proxy http://rooms:5000
+	}
+
+	handle /api* {
+		reverse_proxy http://api:6000
+	}
+
+	handle_path /media* {
+		root * /api/media
+		file_server
+	}
+
+	handle /* {
+		# reverse_proxy http://localhost:3000
+		root * /app/dist
+		file_server
+	}
+}
+

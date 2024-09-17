@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:18-alpine AS build-stage
 
 WORKDIR /app
 
@@ -9,6 +9,8 @@ RUN pnpm install
 
 COPY . .
 
-EXPOSE 8080
+RUN pnpm build
 
-CMD [ "npm", "run", "dev" ]
+FROM caddy:2.8.4-alpine AS web-server
+
+COPY --from=build-stage /app/dist /app/dist

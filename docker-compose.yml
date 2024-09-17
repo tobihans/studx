@@ -1,16 +1,12 @@
 services:
-  # Essential services
   database:
     image: postgres:14.2-alpine3.15
     container_name: studx_pg
     restart: unless-stopped
-    # command: ["postgres", "-c", "log_statement=all"]
-    env_file:
-      - .env
-    ports:
-      - ${STUDX_DB_PORT:-5432}:5432
     volumes:
       - ./container/pg_data:/var/lib/postgresql/data
+    env_file:
+      - .env
     environment:
       POSTGRES_DB: ${STUDX_DB_NAME:-studx}
       POSTGRES_PASSWORD: ${STUDX_DB_PASSWD:-studx}
@@ -19,12 +15,8 @@ services:
     image: redis:7.0-alpine3.16
     container_name: studx_redis
     restart: unless-stopped
-    env_file:
-      - .env
-    ports:
-      - ${STUDX_REDIS_PORT:-6380}:6379
   # Application services
-  writepad-hocuspocus:
+  writepad:
     build: ./writepad/
     ports:
       - "9090:9090"
@@ -32,26 +24,31 @@ services:
     image: rofl256/whiteboard:latest
     ports:
       - "8080:8080"
-  api:
-    image: studx-api
-    build: ./api
-    depends_on:
-      - database
-    env_file:
-      - .env
-    environment:
-      - STUDX_REDIS_URL=redis://redis:6379
   rooms:
     build: ./rooms
     env_file:
       - .env
     environment:
       - STUDX_REDIS_URL=redis://redis:6379
+      - STUDX_ROOMS_ADDRESS=0.0.0.0:5000
     depends_on:
       - database
+  api:
+    image: studx-api
+    build: ./api
+    depends_on:
+      - database
+    volumes:
+      - media:/opt/app/media
+    env_file:
+      - .env
+    environment:
+      - PORT=6000
+      - STUDX_REDIS_URL=redis://redis:6379
+      - STUDX_DB_HOST=database
   # Proxy
   caddy:
-    image: caddy:2.8.4-alpine
+    build: ./ui
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
@@ -60,12 +57,13 @@ services:
       - "443:443"
       - "443:443/udp"
     volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
-      - $PWD/site:/srv
+      - media:/api/media
+      - $PWD/Caddyfile.prod:/etc/caddy/Caddyfile
       # - caddy_data:/data
       # - caddy_config:/config
 
-# volumes:
+volumes:
+  media:
 #   caddy_data:
 #     external: true
 #   caddy_config:
